@@ -1,18 +1,5 @@
 import { WebSocket, WebSocketServer } from "ws";
 import * as uuid from "uuid";
-import * as fs from "fs";
-import { createServer } from "https";
-
-// マイクラのソケット通信用の証明書を読み込む
-const privateKey = fs.readFileSync("./certs/localhost-key.pem", "utf8");
-const certificate = fs.readFileSync("./certs/localhost.pem", "utf8");
-
-// const server = createServer({
-//   key: privateKey,
-//   cert: certificate,
-// });
-
-// const wss = new WebSocketServer({ server });
 
 const wss = new WebSocketServer({ port: 8080 });
 wss.on("connection", (ws) => {
@@ -63,5 +50,3 @@ wss.on("connection", (ws) => {
     ws.send(JSON.stringify(commandRequestMessageJSON));
   });
 });
-
-// server.listen(8080);
