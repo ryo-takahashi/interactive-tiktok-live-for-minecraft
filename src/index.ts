@@ -35,6 +35,27 @@ tiktokLiveConnection
     console.error("Failed to connect", err);
   });
 
+const handleReceiveJoinLiveMember = async (
+  ws: WebSocket | undefined,
+  data: any
+) => {
+  const { nickname, uniqueId } = data;
+  console.log(`${nickname}@${uniqueId} joined live`);
+  if (ws === undefined) {
+    return;
+  }
+  postMinecraftCommand(ws, `say ${nickname} joined the live`);
+
+  const emptyArray = Array.from({ length: 10 }, () => "");
+  for await (const empty of emptyArray) {
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    postMinecraftCommand(
+      ws,
+      buildMobSpawnCommand(Mob.villager, { x: 0, y: 0, z: 0 })
+    );
+  }
+};
+
 const handleReceiveChat = async (ws: WebSocket | undefined, data: any) => {
   const { comment, nickname, uniqueId } = data;
   console.log(`${nickname}@${uniqueId}): ${comment}`);
@@ -42,30 +63,13 @@ const handleReceiveChat = async (ws: WebSocket | undefined, data: any) => {
     return;
   }
   postMinecraftCommand(ws, `say ${nickname}@${uniqueId}: ${comment}`);
-  const fireWord = "TNT";
-  if (comment.includes(fireWord)) {
-    console.log("TNT FEVER!! via comment");
-    postMinecraftCommand(
-      ws,
-      `titleraw @a title {"rawtext":[{"text":"§c§lTNT FEVER"}]}`
-    );
-    postMinecraftCommand(
-      ws,
-      `titleraw @a subtitle {"rawtext":[{"text":"Thanks Comment"}]}`
-    );
-    postMinecraftCommand(ws, "playsound raid.horn @a");
-    const emptyArray = Array.from({ length: 15 }, () => "");
-    for await (const empty of emptyArray) {
-      await new Promise((resolve) => setTimeout(resolve, 200));
-      postMinecraftCommand(
-        ws,
-        buildMobSpawnCommand(Mob.tnt, { x: 0, y: 0, z: 0 })
-      );
-    }
-  }
+  postMinecraftCommand(
+    ws,
+    buildMobSpawnCommand(Mob.warden, { x: 0, y: 0, z: 0 })
+  );
 };
 
-const handleReceiveGift = (ws: WebSocket | undefined, data: any) => {
+const handleReceiveGift = async (ws: WebSocket | undefined, data: any) => {
   const { nickname, uniqueId, giftId } = data;
   console.log(`${nickname}@${uniqueId}): send gift_id = ${giftId}`);
   if (ws === undefined) {
@@ -83,29 +87,34 @@ const handleReceiveGift = (ws: WebSocket | undefined, data: any) => {
       postMinecraftCommand(ws, "playsound random.click @a");
       postMinecraftCommand(
         ws,
-        buildMobSpawnCommand(Mob.tnt, { x: 0, y: 0, z: 0 })
+        buildMobSpawnCommand(Mob.ravager, { x: 0, y: 0, z: 0 })
       );
       break;
     case TikTokGift.gg:
+      const emptyArray = Array.from({ length: 5 }, () => "");
+      for await (const empty of emptyArray) {
+        await new Promise((resolve) => setTimeout(resolve, 200));
+        postMinecraftCommand(
+          ws,
+          buildMobSpawnCommand(Mob.vindicator, { x: 0, y: 0, z: 0 })
+        );
+      }
       break;
     case TikTokGift.Dougnnut:
       postMinecraftCommand(ws, "playsound random.totem @a");
-      postMinecraftCommand(
-        ws,
-        buildMobSpawnCommand(Mob.warden, { x: 0, y: 0, z: 0 })
-      );
-      break;
-    case TikTokGift.Corn:
-      postMinecraftCommand(ws, "playsound random.levelup @a");
-      postMinecraftCommand(
-        ws,
-        buildMobSpawnCommand(Mob.ravager, { x: 0, y: 0, z: 0 })
-      );
+      const arr = Array.from({ length: 5 }, () => "");
+      for await (const empty of arr) {
+        await new Promise((resolve) => setTimeout(resolve, 200));
+        postMinecraftCommand(
+          ws,
+          buildMobSpawnCommand(Mob.warden, { x: 0, y: 0, z: 0 })
+        );
+      }
       break;
   }
 };
 
-const handleReceiveLike = (ws: WebSocket | undefined, data: any) => {
+const handleReceiveLike = async (ws: WebSocket | undefined, data: any) => {
   const { likeCount, nickname, uniqueId, totalLikeCount } = data;
   console.log(
     `${nickname}@${uniqueId}): likeCount = ${likeCount}, totalLikeCount = ${totalLikeCount}`
@@ -113,10 +122,14 @@ const handleReceiveLike = (ws: WebSocket | undefined, data: any) => {
   if (ws === undefined) {
     return;
   }
-  postMinecraftCommand(
-    ws,
-    buildMobSpawnCommand(Mob.vindicator, { x: 0, y: 0, z: 0 })
-  );
+  const emptyArray = Array.from({ length: likeCount }, () => "");
+  for await (const empty of emptyArray) {
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    postMinecraftCommand(
+      ws,
+      buildMobSpawnCommand(Mob.tnt, { x: 0, y: 0, z: 0 })
+    );
+  }
 };
 
 const handleReceiveFollow = async (ws: WebSocket | undefined, data: any) => {
@@ -127,48 +140,37 @@ const handleReceiveFollow = async (ws: WebSocket | undefined, data: any) => {
   }
   postMinecraftCommand(
     ws,
-    `titleraw @a title {"rawtext":[{"text":"§c§lTNT FEVER"}]}`
+    `titleraw @a title {"rawtext":[{"text":"§c§lSummon Warden"}]}`
   );
   postMinecraftCommand(
     ws,
     `titleraw @a subtitle {"rawtext":[{"text":"Thanks Follow"}]}`
   );
-  postMinecraftCommand(ws, "playsound raid.horn @a");
-  const emptyArray = Array.from({ length: 15 }, () => "");
-  for await (const empty of emptyArray) {
-    await new Promise((resolve) => setTimeout(resolve, 200));
-    postMinecraftCommand(
-      ws,
-      buildMobSpawnCommand(Mob.tnt, { x: 0, y: 0, z: 0 })
-    );
-  }
+  postMinecraftCommand(ws, "playsound random.totem @a");
+  postMinecraftCommand(
+    ws,
+    buildMobSpawnCommand(Mob.warden, { x: 0, y: 0, z: 0 })
+  );
 };
 
-const handleReceiveShare = (ws: WebSocket | undefined, data: any) => {
+const handleReceiveShare = async (ws: WebSocket | undefined, data: any) => {
   const { nickname, uniqueId } = data;
   console.log("Shared by", `${nickname}@${uniqueId}`);
   if (ws === undefined) {
     return;
   }
-};
-
-const handleReceiveSubscribe = (ws: WebSocket | undefined, data: any) => {
-  console.log(data.uniqueId, "subscribed!");
-  if (ws === undefined) {
-    return;
-  }
-};
-
-const handleReceiveJoinLiveMember = (ws: WebSocket | undefined, data: any) => {
-  const { nickname, uniqueId } = data;
-  console.log(`${nickname}@${uniqueId} joined live`);
-  if (ws === undefined) {
-    return;
-  }
-  postMinecraftCommand(ws, `say joined ${nickname}@${uniqueId}`);
   postMinecraftCommand(
     ws,
-    buildMobSpawnCommand(Mob.villager, { x: 0, y: 0, z: 0 })
+    `titleraw @a title {"rawtext":[{"text":"§c§lSummon Warden"}]}`
+  );
+  postMinecraftCommand(
+    ws,
+    `titleraw @a subtitle {"rawtext":[{"text":"Thanks Follow"}]}`
+  );
+  postMinecraftCommand(ws, "playsound random.totem @a");
+  postMinecraftCommand(
+    ws,
+    buildMobSpawnCommand(Mob.warden, { x: 0, y: 0, z: 0 })
   );
 };
 
@@ -194,8 +196,4 @@ tiktokLiveConnection.on("follow", (data) => {
 
 tiktokLiveConnection.on("share", (data) => {
   handleReceiveShare(currentWebSocket, data);
-});
-
-tiktokLiveConnection.on("subscribe", (data) => {
-  handleReceiveSubscribe(currentWebSocket, data);
 });
