@@ -89,15 +89,31 @@ const handleReceiveLike = (ws: WebSocket | undefined, data: any) => {
   }
   postMinecraftCommand(
     ws,
-    buildMobSpawnCommand(Mob.pillager, { x: 0, y: 0, z: 0 })
+    buildMobSpawnCommand(Mob.vindicator, { x: 0, y: 0, z: 0 })
   );
 };
 
-const handleReceiveFollow = (ws: WebSocket | undefined, data: any) => {
+const handleReceiveFollow = async (ws: WebSocket | undefined, data: any) => {
   const { nickname, uniqueId } = data;
   console.log("Followed by", `${nickname}@${uniqueId}`);
   if (ws === undefined) {
     return;
+  }
+  postMinecraftCommand(
+    ws,
+    `titleraw @a title {"rawtext":[{"text":"§c§l!!! TNT Fever !!!"}]}`
+  );
+  postMinecraftCommand(
+    ws,
+    `titleraw @a subtitle {"rawtext":[{"text":"Thanks Follow"}]}`
+  );
+  const emptyArray = Array.from({ length: 15 }, () => "");
+  for await (const empty of emptyArray) {
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    postMinecraftCommand(
+      ws,
+      buildMobSpawnCommand(Mob.tnt, { x: 0, y: 0, z: 0 })
+    );
   }
 };
 

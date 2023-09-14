@@ -1,5 +1,5 @@
 export enum Mob {
-  pillager = "pillager",
+  vindicator = "vindicator",
   ravager = "ravager",
   warden = "warden",
   tnt = "tnt",
