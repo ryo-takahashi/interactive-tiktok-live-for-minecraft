@@ -6,6 +6,8 @@ import { postMinecraftCommand } from "./helpers/postMinecraftCommand";
 import { MinecraftSubscribeEvent } from "./types/MinecraftSubscribeEvent";
 import { subscribeMinecraftEvent } from "./helpers/subscribeMinecraftEvent";
 import { TikTokGift } from "./types/TikTokGift";
+import { buildMobSpawnCommand } from "./helpers/buildMobSpawnCommand";
+import { Mob } from "./types/Mob";
 
 const wss = new WebSocketServer({ port: 8080 });
 var currentWebSocket: WebSocket | undefined = undefined;
@@ -49,19 +51,30 @@ const handleReceiveGift = (ws: WebSocket | undefined, data: any) => {
   }
   switch (giftId) {
     case TikTokGift.Rose:
-      postMinecraftCommand(ws, `say ${nickname}@${uniqueId}: 🌹`);
+      postMinecraftCommand(
+        ws,
+        buildMobSpawnCommand(Mob.golem, { x: 0, y: 0, z: 0 })
+      );
       break;
     case TikTokGift.TikTok:
-      postMinecraftCommand(ws, `say ${nickname}@${uniqueId}: 🎵`);
+      postMinecraftCommand(
+        ws,
+        buildMobSpawnCommand(Mob.tnt, { x: 0, y: 0, z: 0 })
+      );
       break;
     case TikTokGift.gg:
-      postMinecraftCommand(ws, `say ${nickname}@${uniqueId}: 🎲`);
       break;
     case TikTokGift.Dougnnut:
-      postMinecraftCommand(ws, `say ${nickname}@${uniqueId}: 🍩`);
+      postMinecraftCommand(
+        ws,
+        buildMobSpawnCommand(Mob.warden, { x: 0, y: 0, z: 0 })
+      );
       break;
     case TikTokGift.Corn:
-      postMinecraftCommand(ws, `say ${nickname}@${uniqueId}: 🌽`);
+      postMinecraftCommand(
+        ws,
+        buildMobSpawnCommand(Mob.ravager, { x: 0, y: 0, z: 0 })
+      );
       break;
   }
 };
@@ -74,7 +87,10 @@ const handleReceiveLike = (ws: WebSocket | undefined, data: any) => {
   if (ws === undefined) {
     return;
   }
-  postMinecraftCommand(ws, `say ${nickname}@${uniqueId}: ❤️`);
+  postMinecraftCommand(
+    ws,
+    buildMobSpawnCommand(Mob.pillager, { x: 0, y: 0, z: 0 })
+  );
 };
 
 const handleReceiveFollow = (ws: WebSocket | undefined, data: any) => {
@@ -83,7 +99,6 @@ const handleReceiveFollow = (ws: WebSocket | undefined, data: any) => {
   if (ws === undefined) {
     return;
   }
-  postMinecraftCommand(ws, `say ${nickname}@${uniqueId}: 🎉🎉🎉`);
 };
 
 const handleReceiveShare = (ws: WebSocket | undefined, data: any) => {
@@ -92,7 +107,6 @@ const handleReceiveShare = (ws: WebSocket | undefined, data: any) => {
   if (ws === undefined) {
     return;
   }
-  postMinecraftCommand(ws, `say ${nickname}@${uniqueId}: 🎉`);
 };
 
 const handleReceiveSubscribe = (ws: WebSocket | undefined, data: any) => {
@@ -100,7 +114,6 @@ const handleReceiveSubscribe = (ws: WebSocket | undefined, data: any) => {
   if (ws === undefined) {
     return;
   }
-  postMinecraftCommand(ws, `say ${data.uniqueId}: 🎉🎉🎉🎉🎉`);
 };
 
 tiktokLiveConnection.on("chat", (data) => {
