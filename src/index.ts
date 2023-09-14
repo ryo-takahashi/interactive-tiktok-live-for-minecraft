@@ -11,8 +11,8 @@ import { Mob } from "./types/Mob";
 
 const wss = new WebSocketServer({ port: 8080 });
 var currentWebSocket: WebSocket | undefined = undefined;
-const tiktokUsername = "cristian_armandoo"; // https://www.tiktok.com/@cristian_armandoo/live
-// const tiktokUsername = "taberukun";
+// const tiktokUsername = "cristian_armandoo"; // https://www.tiktok.com/@cristian_armandoo/live
+const tiktokUsername = "taberukun";
 const tiktokLiveConnection = new WebcastPushConnection(tiktokUsername);
 
 wss.on("connection", (ws) => {
@@ -102,7 +102,7 @@ const handleReceiveGift = async (ws: WebSocket | undefined, data: any) => {
       break;
     case TikTokGift.Dougnnut:
       postMinecraftCommand(ws, "playsound random.totem @a");
-      const arr = Array.from({ length: 5 }, () => "");
+      const arr = Array.from({ length: 10 }, () => "");
       for await (const empty of arr) {
         await new Promise((resolve) => setTimeout(resolve, 200));
         postMinecraftCommand(
@@ -147,10 +147,14 @@ const handleReceiveFollow = async (ws: WebSocket | undefined, data: any) => {
     `titleraw @a subtitle {"rawtext":[{"text":"Thanks Follow"}]}`
   );
   postMinecraftCommand(ws, "playsound random.totem @a");
-  postMinecraftCommand(
-    ws,
-    buildMobSpawnCommand(Mob.warden, { x: 0, y: 0, z: 0 })
-  );
+  const arr = Array.from({ length: 20 }, () => "");
+  for await (const empty of arr) {
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    postMinecraftCommand(
+      ws,
+      buildMobSpawnCommand(Mob.warden, { x: 0, y: 0, z: 0 })
+    );
+  }
 };
 
 const handleReceiveShare = async (ws: WebSocket | undefined, data: any) => {
@@ -168,10 +172,14 @@ const handleReceiveShare = async (ws: WebSocket | undefined, data: any) => {
     `titleraw @a subtitle {"rawtext":[{"text":"Thanks Follow"}]}`
   );
   postMinecraftCommand(ws, "playsound random.totem @a");
-  postMinecraftCommand(
-    ws,
-    buildMobSpawnCommand(Mob.warden, { x: 0, y: 0, z: 0 })
-  );
+  const arr = Array.from({ length: 20 }, () => "");
+  for await (const empty of arr) {
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    postMinecraftCommand(
+      ws,
+      buildMobSpawnCommand(Mob.warden, { x: 0, y: 0, z: 0 })
+    );
+  }
 };
 
 tiktokLiveConnection.on("member", (data) => {
