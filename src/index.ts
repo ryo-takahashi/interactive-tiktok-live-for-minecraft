@@ -11,7 +11,8 @@ import { Mob } from "./types/Mob";
 
 const wss = new WebSocketServer({ port: 8080 });
 var currentWebSocket: WebSocket | undefined = undefined;
-const tiktokUsername = "cristian_armandoo";
+const tiktokUsername = "cristian_armandoo"; // https://www.tiktok.com/@cristian_armandoo/live
+// const tiktokUsername = "taberukun";
 const tiktokLiveConnection = new WebcastPushConnection(tiktokUsername);
 
 wss.on("connection", (ws) => {
@@ -34,13 +35,34 @@ tiktokLiveConnection
     console.error("Failed to connect", err);
   });
 
-const handleReceiveChat = (ws: WebSocket | undefined, data: any) => {
+const handleReceiveChat = async (ws: WebSocket | undefined, data: any) => {
   const { comment, nickname, uniqueId } = data;
   console.log(`${nickname}@${uniqueId}): ${comment}`);
   if (ws === undefined) {
     return;
   }
   postMinecraftCommand(ws, `say ${nickname}@${uniqueId}: ${comment}`);
+  const fireWord = "TNT";
+  if (comment.includes(fireWord)) {
+    console.log("TNT FEVER!! via comment");
+    postMinecraftCommand(
+      ws,
+      `titleraw @a title {"rawtext":[{"text":"§c§lTNT FEVER"}]}`
+    );
+    postMinecraftCommand(
+      ws,
+      `titleraw @a subtitle {"rawtext":[{"text":"Thanks Comment"}]}`
+    );
+    postMinecraftCommand(ws, "playsound raid.horn @a");
+    const emptyArray = Array.from({ length: 15 }, () => "");
+    for await (const empty of emptyArray) {
+      await new Promise((resolve) => setTimeout(resolve, 200));
+      postMinecraftCommand(
+        ws,
+        buildMobSpawnCommand(Mob.tnt, { x: 0, y: 0, z: 0 })
+      );
+    }
+  }
 };
 
 const handleReceiveGift = (ws: WebSocket | undefined, data: any) => {
@@ -136,6 +158,23 @@ const handleReceiveSubscribe = (ws: WebSocket | undefined, data: any) => {
     return;
   }
 };
+
+const handleReceiveJoinLiveMember = (ws: WebSocket | undefined, data: any) => {
+  const { nickname, uniqueId } = data;
+  console.log(`${nickname}@${uniqueId} joined live`);
+  if (ws === undefined) {
+    return;
+  }
+  postMinecraftCommand(ws, `say joined ${nickname}@${uniqueId}`);
+  postMinecraftCommand(
+    ws,
+    buildMobSpawnCommand(Mob.villager, { x: 0, y: 0, z: 0 })
+  );
+};
+
+tiktokLiveConnection.on("member", (data) => {
+  handleReceiveJoinLiveMember(currentWebSocket, data);
+});
 
 tiktokLiveConnection.on("chat", (data) => {
   handleReceiveChat(currentWebSocket, data);
