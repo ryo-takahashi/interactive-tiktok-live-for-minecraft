@@ -1,26 +1,10 @@
 import { WebcastPushConnection } from "tiktok-live-connector";
-import { WebSocket, WebSocketServer } from "ws";
-import * as uuid from "uuid";
-import { buildMinecraftCommandJSON } from "./helpers/buildMinecraftCommandJSON";
-import { postMinecraftCommand } from "./helpers/postMinecraftCommand";
-import { MinecraftSubscribeEvent } from "./types/MinecraftSubscribeEvent";
-import { subscribeMinecraftEvent } from "./helpers/subscribeMinecraftEvent";
 
-const wss = new WebSocketServer({ port: 8080 });
-var currentWebSocket: WebSocket | undefined = undefined;
+// const tiktokUsername = "fantasyonline_official";
 const tiktokUsername = "cristian_armandoo";
+// const tiktokUsername = "luckym899";
+
 const tiktokLiveConnection = new WebcastPushConnection(tiktokUsername);
-
-wss.on("connection", (ws) => {
-  console.log("Connected Minecraft");
-  currentWebSocket = ws;
-});
-
-wss.on("close", () => {
-  console.log("Disconnected Minecraft");
-  currentWebSocket = undefined;
-  tiktokLiveConnection.disconnect();
-});
 
 tiktokLiveConnection
   .connect()
@@ -31,17 +15,9 @@ tiktokLiveConnection
     console.error("Failed to connect", err);
   });
 
-const handleReceiveChat = (ws: WebSocket | undefined, data: any) => {
+tiktokLiveConnection.on("chat", (data) => {
   const { comment, nickname, uniqueId } = data;
   console.log(`${nickname}@${uniqueId}): ${comment}`);
-  if (ws === undefined) {
-    return;
-  }
-  postMinecraftCommand(ws, `say ${nickname}@${uniqueId}: ${comment}`);
-};
-
-tiktokLiveConnection.on("chat", (data) => {
-  handleReceiveChat(currentWebSocket, data);
 });
 
 tiktokLiveConnection.on("gift", (data) => {

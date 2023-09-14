@@ -28,3 +28,11 @@ npm run dev
 ```
 npm run live
 ```
+
+# resources
+
+- https://github.com/zerodytrash/TikTok-Live-Connector
+- https://gist.github.com/jocopa3/5f718f4198f1ea91a37e3a9da468675c#file-mcpe-w10-event-names
+- https://www.youtube.com/watch?v=3yNnpVBc-eI
+- https://minecraft.lflab.work/ws-connect
+- https://streamdps.com/tiktok-widgets/gifts/
