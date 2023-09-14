@@ -51,12 +51,14 @@ const handleReceiveGift = (ws: WebSocket | undefined, data: any) => {
   }
   switch (giftId) {
     case TikTokGift.Rose:
+      postMinecraftCommand(ws, "playsound mob.irongolem.throw @a");
       postMinecraftCommand(
         ws,
         buildMobSpawnCommand(Mob.golem, { x: 0, y: 0, z: 0 })
       );
       break;
     case TikTokGift.TikTok:
+      postMinecraftCommand(ws, "playsound random.click @a");
       postMinecraftCommand(
         ws,
         buildMobSpawnCommand(Mob.tnt, { x: 0, y: 0, z: 0 })
@@ -65,12 +67,14 @@ const handleReceiveGift = (ws: WebSocket | undefined, data: any) => {
     case TikTokGift.gg:
       break;
     case TikTokGift.Dougnnut:
+      postMinecraftCommand(ws, "playsound random.totem @a");
       postMinecraftCommand(
         ws,
         buildMobSpawnCommand(Mob.warden, { x: 0, y: 0, z: 0 })
       );
       break;
     case TikTokGift.Corn:
+      postMinecraftCommand(ws, "playsound random.levelup @a");
       postMinecraftCommand(
         ws,
         buildMobSpawnCommand(Mob.ravager, { x: 0, y: 0, z: 0 })
@@ -101,12 +105,13 @@ const handleReceiveFollow = async (ws: WebSocket | undefined, data: any) => {
   }
   postMinecraftCommand(
     ws,
-    `titleraw @a title {"rawtext":[{"text":"§c§l!!! TNT Fever !!!"}]}`
+    `titleraw @a title {"rawtext":[{"text":"§c§lTNT FEVER"}]}`
   );
   postMinecraftCommand(
     ws,
     `titleraw @a subtitle {"rawtext":[{"text":"Thanks Follow"}]}`
   );
+  postMinecraftCommand(ws, "playsound raid.horn @a");
   const emptyArray = Array.from({ length: 15 }, () => "");
   for await (const empty of emptyArray) {
     await new Promise((resolve) => setTimeout(resolve, 200));
