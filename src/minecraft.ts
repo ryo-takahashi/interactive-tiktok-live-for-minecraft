@@ -4,16 +4,17 @@ import * as fs from "fs";
 import { createServer } from "https";
 
 // マイクラのソケット通信用の証明書を読み込む
-const privateKey = fs.readFileSync("./certs/localhost-private-key.pem", "utf8");
+const privateKey = fs.readFileSync("./certs/localhost-key.pem", "utf8");
 const certificate = fs.readFileSync("./certs/localhost.pem", "utf8");
 
-const server = createServer({
-  key: privateKey,
-  cert: certificate,
-});
+// const server = createServer({
+//   key: privateKey,
+//   cert: certificate,
+// });
 
-const wss = new WebSocketServer({ server });
+// const wss = new WebSocketServer({ server });
 
+const wss = new WebSocketServer({ port: 8080 });
 wss.on("connection", (ws) => {
   console.log("Connected");
   const subscribeMessageJSON = {
@@ -33,12 +34,10 @@ wss.on("connection", (ws) => {
   ws.on("message", (rawData) => {
     const data = JSON.parse(rawData.toString());
     console.log(data);
-    if (!data.body.eventName) {
-      return;
-    }
-    if (data.body.eventName != "PlayerTravelled") {
+    if (data.header.eventName !== "PlayerTravelled") {
       return; // メッセージのイベント名がPlayerTravelledでない場合は処理を抜ける
     }
+    console.log(ws.readyState);
     if (ws.readyState !== WebSocket.OPEN) {
       return; // WebSocketがOPEN状態でない場合は処理を抜ける
     }
@@ -65,9 +64,4 @@ wss.on("connection", (ws) => {
   });
 });
 
-server.on("request", (req, res) => {
-  res.writeHead(200);
-  res.end("All glory to WebSockets!\n");
-});
-
-server.listen(8080);
+// server.listen(8080);
