@@ -1,8 +1,9 @@
 import { WebcastPushConnection } from "tiktok-live-connector";
 
-let tiktokUsername = "fantasyonline_official";
+// const tiktokUsername = "fantasyonline_official";
+const tiktokUsername = "cristian_armandoo";
 
-let tiktokLiveConnection = new WebcastPushConnection(tiktokUsername);
+const tiktokLiveConnection = new WebcastPushConnection(tiktokUsername);
 
 tiktokLiveConnection
   .connect()
@@ -14,11 +15,32 @@ tiktokLiveConnection
   });
 
 tiktokLiveConnection.on("chat", (data) => {
-  console.log(
-    `${data.uniqueId} (userId:${data.userId}) writes: ${data.comment}`
-  );
+  const { comment, nickname, uniqueId } = data;
+  console.log(`${nickname}@${uniqueId}): ${comment}`);
 });
 
 tiktokLiveConnection.on("gift", (data) => {
-  console.log(`${data.uniqueId} (userId:${data.userId}) sends ${data.giftId}`);
+  const { nickname, uniqueId, giftId } = data;
+  console.log(`${nickname}@${uniqueId}): send gift_id = ${giftId}`);
+});
+
+tiktokLiveConnection.on("like", (data) => {
+  const { likeCount, nickname, uniqueId, totalLikeCount } = data;
+  console.log(
+    `${nickname}@${uniqueId}): likeCount = ${likeCount}, totalLikeCount = ${totalLikeCount}`
+  );
+});
+
+tiktokLiveConnection.on("follow", (data) => {
+  const { nickname, uniqueId } = data;
+  console.log("Followed by", `${nickname}@${uniqueId}`);
+});
+
+tiktokLiveConnection.on("share", (data) => {
+  const { nickname, uniqueId } = data;
+  console.log("Shared by", `${nickname}@${uniqueId}`);
+});
+
+tiktokLiveConnection.on("subscribe", (data) => {
+  console.log(data.uniqueId, "subscribed!");
 });
