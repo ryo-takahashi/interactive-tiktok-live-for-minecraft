@@ -1,13 +1,11 @@
 import { WebcastPushConnection } from "tiktok-live-connector";
 import { WebSocket, WebSocketServer } from "ws";
-import { postSummonVillagerRecursive } from "./helpers/postSummonVillagerRecursive";
 import { handleReceiveFollow } from "./handler/handleReceiveFollow";
 import { handleReceiveGift } from "./handler/handleReceiveGift";
 import { handleReceiveJoinLiveMember } from "./handler/handleReceiveJoinLiveMember";
 import { handleReceiveShare } from "./handler/handleReceiveShare";
 import { handleReceiveLike } from "./handler/handleReceiveLike";
 import { handleReceiveChat } from "./handler/handleReceiveChat";
-import { TikTokLiveUser } from "./types/TikTokLiveUser";
 import { handleStreamEnd } from "./handler/handleStreamEnd";
 import { handleReceiveMinecraftMessage } from "./handler/handleReceiveMinecraftMessage";
 
@@ -74,4 +72,5 @@ wss.on("close", () => {
   console.log("Disconnected Minecraft");
   currentWebSocket = undefined;
   currentTiktokLiveConnection?.disconnect();
+  currentTiktokLiveConnection = undefined;
 });
