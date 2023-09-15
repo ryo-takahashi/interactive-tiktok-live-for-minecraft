@@ -9,17 +9,20 @@ import { handleReceiveLike } from "./handler/handleReceiveLike";
 import { handleReceiveChat } from "./handler/handleReceiveChat";
 import { TikTokLiveUser } from "./types/TikTokLiveUser";
 import { handleStreamEnd } from "./handler/handleStreamEnd";
+import { handleReceiveMinecraftMessage } from "./handler/handleReceiveMinecraftMessage";
 
 const wss = new WebSocketServer({ port: 8080 });
 var currentWebSocket: WebSocket | undefined = undefined;
-const tiktokUsername = TikTokLiveUser.abelleeeeeeeee;
+const tiktokUsername = TikTokLiveUser.majecraft;
 const tiktokLiveConnection = new WebcastPushConnection(tiktokUsername);
 
 wss.on("connection", async (ws) => {
   console.log("Connected Minecraft");
   currentWebSocket = ws;
 
-  postSummonVillagerRecursive(ws);
+  ws.on("message", async (rawData) => {
+    handleReceiveMinecraftMessage(currentWebSocket, rawData);
+  });
 });
 
 wss.on("close", () => {

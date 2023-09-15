@@ -6,4 +6,6 @@ export enum Mob {
   tnt = "tnt",
   golem = "iron_golem",
   villager = "villager",
+  zombie = "zombie",
+  creeper = "creeper",
 }
