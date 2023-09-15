@@ -15,9 +15,24 @@ var currentWebSocket: WebSocket | undefined = undefined;
 const tiktokUsername = "taberukun";
 const tiktokLiveConnection = new WebcastPushConnection(tiktokUsername);
 
-wss.on("connection", (ws) => {
+const postSummonVillagerRecursive = async (ws: WebSocket | undefined) => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  if (ws === undefined) {
+    return;
+  }
+  console.log("summon villager");
+  postMinecraftCommand(
+    ws,
+    buildMobSpawnCommand(Mob.villager, { x: 0, y: 0, z: 0 })
+  );
+  await postSummonVillagerRecursive(ws);
+};
+
+wss.on("connection", async (ws) => {
   console.log("Connected Minecraft");
   currentWebSocket = ws;
+
+  postSummonVillagerRecursive(ws);
 });
 
 wss.on("close", () => {
@@ -46,7 +61,7 @@ const handleReceiveJoinLiveMember = async (
   }
   postMinecraftCommand(ws, `say ${nickname} joined the live`);
 
-  const emptyArray = Array.from({ length: 10 }, () => "");
+  const emptyArray = Array.from({ length: 5 }, () => "");
   for await (const empty of emptyArray) {
     await new Promise((resolve) => setTimeout(resolve, 200));
     postMinecraftCommand(
@@ -63,10 +78,6 @@ const handleReceiveChat = async (ws: WebSocket | undefined, data: any) => {
     return;
   }
   postMinecraftCommand(ws, `say ${nickname}@${uniqueId}: ${comment}`);
-  postMinecraftCommand(
-    ws,
-    buildMobSpawnCommand(Mob.warden, { x: 0, y: 0, z: 0 })
-  );
 };
 
 const handleReceiveGift = async (ws: WebSocket | undefined, data: any) => {
@@ -85,24 +96,20 @@ const handleReceiveGift = async (ws: WebSocket | undefined, data: any) => {
       break;
     case TikTokGift.TikTok:
       postMinecraftCommand(ws, "playsound random.click @a");
-      postMinecraftCommand(
-        ws,
-        buildMobSpawnCommand(Mob.ravager, { x: 0, y: 0, z: 0 })
-      );
-      break;
-    case TikTokGift.gg:
-      const emptyArray = Array.from({ length: 5 }, () => "");
-      for await (const empty of emptyArray) {
+      const tiktokArr = Array.from({ length: 5 }, () => "");
+      for await (const empty of tiktokArr) {
         await new Promise((resolve) => setTimeout(resolve, 200));
         postMinecraftCommand(
           ws,
-          buildMobSpawnCommand(Mob.vindicator, { x: 0, y: 0, z: 0 })
+          buildMobSpawnCommand(Mob.tnt, { x: 0, y: 0, z: 0 })
         );
       }
       break;
+    case TikTokGift.gg:
+      break;
     case TikTokGift.Dougnnut:
-      postMinecraftCommand(ws, "playsound random.totem @a");
-      const arr = Array.from({ length: 10 }, () => "");
+      postMinecraftCommand(ws, "playsound random.levelup @a");
+      const arr = Array.from({ length: 2 }, () => "");
       for await (const empty of arr) {
         await new Promise((resolve) => setTimeout(resolve, 200));
         postMinecraftCommand(
@@ -127,7 +134,7 @@ const handleReceiveLike = async (ws: WebSocket | undefined, data: any) => {
     await new Promise((resolve) => setTimeout(resolve, 200));
     postMinecraftCommand(
       ws,
-      buildMobSpawnCommand(Mob.tnt, { x: 0, y: 0, z: 0 })
+      buildMobSpawnCommand(Mob.vindicator, { x: 0, y: 0, z: 0 })
     );
   }
 };
@@ -140,19 +147,19 @@ const handleReceiveFollow = async (ws: WebSocket | undefined, data: any) => {
   }
   postMinecraftCommand(
     ws,
-    `titleraw @a title {"rawtext":[{"text":"§c§lSummon Warden"}]}`
+    `titleraw @a title {"rawtext":[{"text":"§c§lTNT Rain"}]}`
   );
   postMinecraftCommand(
     ws,
     `titleraw @a subtitle {"rawtext":[{"text":"Thanks Follow"}]}`
   );
-  postMinecraftCommand(ws, "playsound random.totem @a");
-  const arr = Array.from({ length: 20 }, () => "");
+  postMinecraftCommand(ws, "playsound random.levelup @a");
+  const arr = Array.from({ length: 15 }, () => "");
   for await (const empty of arr) {
     await new Promise((resolve) => setTimeout(resolve, 200));
     postMinecraftCommand(
       ws,
-      buildMobSpawnCommand(Mob.warden, { x: 0, y: 0, z: 0 })
+      buildMobSpawnCommand(Mob.tnt, { x: 0, y: 0, z: 0 })
     );
   }
 };
@@ -165,19 +172,19 @@ const handleReceiveShare = async (ws: WebSocket | undefined, data: any) => {
   }
   postMinecraftCommand(
     ws,
-    `titleraw @a title {"rawtext":[{"text":"§c§lSummon Warden"}]}`
+    `titleraw @a title {"rawtext":[{"text":"§c§lTNT Rain"}]}`
   );
   postMinecraftCommand(
     ws,
     `titleraw @a subtitle {"rawtext":[{"text":"Thanks Follow"}]}`
   );
-  postMinecraftCommand(ws, "playsound random.totem @a");
-  const arr = Array.from({ length: 20 }, () => "");
+  postMinecraftCommand(ws, "playsound random.levelup @a");
+  const arr = Array.from({ length: 15 }, () => "");
   for await (const empty of arr) {
     await new Promise((resolve) => setTimeout(resolve, 200));
     postMinecraftCommand(
       ws,
-      buildMobSpawnCommand(Mob.warden, { x: 0, y: 0, z: 0 })
+      buildMobSpawnCommand(Mob.tnt, { x: 0, y: 0, z: 0 })
     );
   }
 };
