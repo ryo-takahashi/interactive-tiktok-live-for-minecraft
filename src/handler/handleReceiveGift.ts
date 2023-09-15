@@ -16,10 +16,8 @@ export const handleReceiveGift = async (
   }
   switch (giftId) {
     case TikTokGift.Rose:
-      spawnGolemAtPlayer(ws, nickname);
       break;
     case TikTokGift.TikTok:
-      spawnTNTAtPlayer(ws, 1);
       break;
     case TikTokGift.gg:
       break;

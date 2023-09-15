@@ -15,7 +15,24 @@ export const handleReceiveLike = async (
   if (ws === undefined) {
     return;
   }
-  spawnZombieAtPlayer(ws, nickname, likeCount);
+  spawnRandomEnemyAtPlayer(ws, nickname, likeCount);
+};
+
+const spawnRandomEnemyAtPlayer = async (
+  ws: WebSocket,
+  mobNameTag: string,
+  count: number
+) => {
+  const emptyArray = Array.from({ length: count }, () => "");
+  for await (const empty of emptyArray) {
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    const enemies = [Mob.zombie, Mob.skeleton, Mob.creeper, Mob.spider];
+    const randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
+    postMinecraftCommand(
+      ws,
+      buildMobSpawnCommandAtPlayer(randomEnemy, mobNameTag)
+    );
+  }
 };
 
 const spawnZombieAtPlayer = async (

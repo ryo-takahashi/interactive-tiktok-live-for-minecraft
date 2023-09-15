@@ -8,4 +8,10 @@ export enum Mob {
   villager = "villager",
   zombie = "zombie",
   creeper = "creeper",
+  skeleton = "skeleton",
+  spider = "spider",
+  chicken = "chicken",
+  cow = "cow",
+  pig = "pig",
+  sheep = "sheep",
 }
