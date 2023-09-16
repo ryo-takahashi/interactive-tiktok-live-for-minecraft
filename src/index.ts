@@ -8,6 +8,7 @@ import { handleReceiveLike } from "./handler/handleReceiveLike";
 import { handleReceiveChat } from "./handler/handleReceiveChat";
 import { handleStreamEnd } from "./handler/handleStreamEnd";
 import { handleReceiveMinecraftMessage } from "./handler/handleReceiveMinecraftMessage";
+import { connect } from "http2";
 
 const wss = new WebSocketServer({ port: 8080 });
 var currentWebSocket: WebSocket | undefined = undefined;
@@ -20,6 +21,10 @@ wss.on("connection", async (ws, req) => {
   }
   console.log("Connected Minecraft");
   const connectToTikTokUserName = req.url.replace("/", "");
+  if (connectToTikTokUserName === "") {
+    console.error("No TikTok username provided");
+    return;
+  }
 
   currentWebSocket = ws;
 

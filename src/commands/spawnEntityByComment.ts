@@ -16,55 +16,50 @@ export const spawnEntityByComment = async (
     Object.values(SpawnCommentType).includes(character as SpawnCommentType)
   );
   for await (const character of filterdCharacters) {
-    await new Promise((resolve) => setTimeout(resolve, 500));
     switch (character) {
-      case SpawnCommentType.tnt:
+      case SpawnCommentType._1:
+        await new Promise((resolve) => setTimeout(resolve, 500));
         postMinecraftCommand(
           ws,
           buildMobSpawnCommandAtPlayer(Mob.tnt, nickname)
         );
         break;
-      case SpawnCommentType.iron_golem:
+      case SpawnCommentType._2:
+        await new Promise((resolve) => setTimeout(resolve, 100));
         postMinecraftCommand(
           ws,
           buildMobSpawnCommandAtPlayer(Mob.golem, nickname)
         );
         break;
-      case SpawnCommentType.golden_apple:
+      case SpawnCommentType._3:
         postMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.golden_apple));
         break;
-      case SpawnCommentType.iron_ingot:
+      case SpawnCommentType._4:
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        postMinecraftCommand(
+          ws,
+          buildMobSpawnCommandAtPlayer(Mob.fireworks_rocket, nickname)
+        );
+        break;
+      case SpawnCommentType._5:
+        postMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.ender_pearl));
+        break;
+      case SpawnCommentType._6:
+        postMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.obsidian));
+        break;
+      case SpawnCommentType._7:
         postMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.iron_ingot));
         break;
-      case SpawnCommentType.wood:
-        postMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.wood));
+      case SpawnCommentType._8:
+        postMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.gold_ingot));
         break;
-      case SpawnCommentType.arrow:
-        postMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.arrow));
+      case SpawnCommentType._9:
+        postMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.diamond));
         break;
-      case SpawnCommentType.chicken:
-        postMinecraftCommand(
-          ws,
-          buildMobSpawnCommandAtPlayer(Mob.chicken, nickname)
-        );
+      case SpawnCommentType._0:
+        postMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.emerald));
         break;
-      case SpawnCommentType.sheep:
-        postMinecraftCommand(
-          ws,
-          buildMobSpawnCommandAtPlayer(Mob.sheep, nickname)
-        );
-        break;
-      case SpawnCommentType.cow:
-        postMinecraftCommand(
-          ws,
-          buildMobSpawnCommandAtPlayer(Mob.cow, nickname)
-        );
-        break;
-      case SpawnCommentType.pig:
-        postMinecraftCommand(
-          ws,
-          buildMobSpawnCommandAtPlayer(Mob.pig, nickname)
-        );
+      default:
         break;
     }
   }

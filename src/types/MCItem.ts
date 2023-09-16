@@ -4,4 +4,9 @@ export enum MCItem {
   iron_ingot = "iron_ingot",
   wood = "wood",
   arrow = "arrow",
+  ender_pearl = "ender_pearl",
+  diamond = "diamond",
+  gold_ingot = "gold_ingot",
+  emerald = "emerald",
+  obsidian = "obsidian",
 }

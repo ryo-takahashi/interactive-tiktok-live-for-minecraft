@@ -1,6 +1,7 @@
 import { buildMobSpawnCommand } from "../helpers/buildMobSpawnCommand";
 import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
 import { postMinecraftCommand } from "../helpers/postMinecraftCommand";
+import { sanitizeCommandText } from "../helpers/sanitizeCommandText";
 import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
 
@@ -19,7 +20,9 @@ export const handleReceiveShare = async (
   );
   postMinecraftCommand(
     ws,
-    `titleraw @a subtitle {"rawtext":[{"text":"Thanks Follow"}]}`
+    `titleraw @a subtitle {"rawtext":[{"text":"shared by ${sanitizeCommandText(
+      nickname
+    )}"}]}`
   );
   postMinecraftCommand(ws, "playsound random.levelup @a");
   spawnTNTAtPlayer(ws, 15);

@@ -3,6 +3,7 @@ import { buildGiveCommandAtPlayer } from "../helpers/buildGiveCommandAtPlayer";
 import { buildMobSpawnCommand } from "../helpers/buildMobSpawnCommand";
 import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
 import { postMinecraftCommand } from "../helpers/postMinecraftCommand";
+import { sanitizeCommandText } from "../helpers/sanitizeCommandText";
 import { MCItem } from "../types/MCItem";
 import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
@@ -33,5 +34,10 @@ const postChat = async (
   uniqueId: string,
   comment: string
 ) => {
-  postMinecraftCommand(ws, `say ${nickname}@${uniqueId}: ${comment}`);
+  postMinecraftCommand(
+    ws,
+    `say ${sanitizeCommandText(nickname)}@${uniqueId}: ${sanitizeCommandText(
+      comment
+    )}`
+  );
 };

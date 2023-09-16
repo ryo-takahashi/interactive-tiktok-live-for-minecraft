@@ -1,6 +1,7 @@
 import { buildMobSpawnCommand } from "../helpers/buildMobSpawnCommand";
 import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
 import { postMinecraftCommand } from "../helpers/postMinecraftCommand";
+import { sanitizeCommandText } from "../helpers/sanitizeCommandText";
 import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
 
@@ -13,7 +14,10 @@ export const handleReceiveJoinLiveMember = async (
   if (ws === undefined) {
     return;
   }
-  postMinecraftCommand(ws, `say §e${nickname} joined the game`);
+  postMinecraftCommand(
+    ws,
+    `say §e${sanitizeCommandText(nickname)} joined the game`
+  );
   spawnVillagerAtPlayer(ws, 1, nickname);
 };
 

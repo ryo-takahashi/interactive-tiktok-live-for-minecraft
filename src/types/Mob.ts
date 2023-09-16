@@ -14,4 +14,5 @@ export enum Mob {
   cow = "cow",
   pig = "pig",
   sheep = "sheep",
+  fireworks_rocket = "fireworks_rocket",
 }

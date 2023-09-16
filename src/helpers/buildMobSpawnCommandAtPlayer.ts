@@ -1,10 +1,10 @@
 import { Mob } from "../types/Mob";
+import { sanitizeCommandText } from "./sanitizeCommandText";
 
 export const buildMobSpawnCommandAtPlayer = (
   mob: Mob,
   mobNameTag: string
 ): string => {
-  // replace space, <, >, @, ', ", /, -, *, ~ with _
-  const replacedNameTag = mobNameTag.replace(/[\s<>@'"/\-*~]/g, "_");
+  const replacedNameTag = sanitizeCommandText(mobNameTag);
   return `summon ${mob} ${replacedNameTag} ~~~`;
 };
