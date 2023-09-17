@@ -33,19 +33,19 @@ const spawnRandomEnemyAtPlayer = async (
       ws,
       buildMobSpawnCommandAtPlayer(randomEnemy, mobNameTag)
     );
-    spawnWardenIfNeeded(ws, mobNameTag);
+    spawnTNTFeverIfNeeded(ws, mobNameTag);
   }
 };
 
-const spawnWardenIfNeeded = async (ws: WebSocket, mobNameTag: string) => {
-  // 0.333%の確率でwardenをspawn
-  const needSpawnWarden = Math.random() < 0.00333;
-  if (!needSpawnWarden) {
+const spawnTNTFeverIfNeeded = async (ws: WebSocket, mobNameTag: string) => {
+  // 0.333%の確率でTNT Feverを発生させる
+  const needSpawn = Math.random() < 0.00333;
+  if (!needSpawn) {
     return;
   }
   postMinecraftCommand(
     ws,
-    `titleraw @a title {"rawtext":[{"text":"§c§lSummon Warden"}]}`
+    `titleraw @a title {"rawtext":[{"text":"§c§lTNT FEVER!!"}]}`
   );
   postMinecraftCommand(
     ws,
@@ -54,10 +54,11 @@ const spawnWardenIfNeeded = async (ws: WebSocket, mobNameTag: string) => {
     )}"}]}`
   );
   postMinecraftCommand(ws, "playsound random.levelup @a");
-  postMinecraftCommand(
-    ws,
-    buildMobSpawnCommandAtPlayer(Mob.warden, mobNameTag)
-  );
+  const emptyArray = Array.from({ length: 15 }, () => "");
+  for await (const empty of emptyArray) {
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    postMinecraftCommand(ws, buildMobSpawnCommandAtPlayer(Mob.tnt, mobNameTag));
+  }
 };
 
 const spawnZombieAtPlayer = async (
