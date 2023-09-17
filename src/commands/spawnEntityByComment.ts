@@ -12,67 +12,107 @@ export const spawnEntityByComment = async (
   comment: string
 ) => {
   const characters = [...comment];
-  const filterdCharacters = characters.filter((character) =>
-    Object.values(SpawnCommentType).includes(character as SpawnCommentType)
+  const filterd1Characters = characters.filter(
+    (character) => character === SpawnCommentType._1
   );
-  for await (const character of filterdCharacters) {
-    switch (character) {
-      case SpawnCommentType._1:
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        executeMinecraftCommand(
-          ws,
-          buildMobSpawnCommandAtPlayer(Mob.tnt, nickname)
-        );
-        break;
-      case SpawnCommentType._2:
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        executeMinecraftCommand(
-          ws,
-          buildMobSpawnCommandAtPlayer(Mob.golem, nickname)
-        );
-        break;
-      case SpawnCommentType._3:
-        executeMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.diamond));
-        break;
-      case SpawnCommentType._4:
-        executeMinecraftCommand(
-          ws,
-          buildGiveCommandAtPlayer(MCItem.iron_ingot)
-        );
-        break;
-      case SpawnCommentType._5:
-        executeMinecraftCommand(
-          ws,
-          buildGiveCommandAtPlayer(MCItem.gold_ingot)
-        );
-        break;
-      case SpawnCommentType._6:
-        executeMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.emerald));
-        break;
-      case SpawnCommentType._7:
-        executeMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.obsidian));
-        break;
-      case SpawnCommentType._8:
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        executeMinecraftCommand(
-          ws,
-          buildMobSpawnCommandAtPlayer(Mob.fireworks_rocket, nickname)
-        );
-        break;
-      case SpawnCommentType._9:
-        executeMinecraftCommand(
-          ws,
-          buildGiveCommandAtPlayer(MCItem.golden_apple)
-        );
-        break;
-      case SpawnCommentType._0:
-        executeMinecraftCommand(
-          ws,
-          buildGiveCommandAtPlayer(MCItem.ender_pearl)
-        );
-        break;
-      default:
-        break;
-    }
+  const filterd2Characters = characters.filter(
+    (character) => character === SpawnCommentType._2
+  );
+  const filterd3Characters = characters.filter(
+    (character) => character === SpawnCommentType._3
+  );
+  const filterd4Characters = characters.filter(
+    (character) => character === SpawnCommentType._4
+  );
+  const filterd5Characters = characters.filter(
+    (character) => character === SpawnCommentType._5
+  );
+  const filterd6Characters = characters.filter(
+    (character) => character === SpawnCommentType._6
+  );
+  const filterd7Characters = characters.filter(
+    (character) => character === SpawnCommentType._7
+  );
+  const filterd8Characters = characters.filter(
+    (character) => character === SpawnCommentType._8
+  );
+  const filterd9Characters = characters.filter(
+    (character) => character === SpawnCommentType._9
+  );
+  const filterd0Characters = characters.filter(
+    (character) => character === SpawnCommentType._0
+  );
+
+  for await (const character of filterd1Characters) {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    executeMinecraftCommand(
+      ws,
+      buildMobSpawnCommandAtPlayer(Mob.tnt, nickname)
+    );
+  }
+
+  for await (const character of filterd2Characters) {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    executeMinecraftCommand(
+      ws,
+      buildMobSpawnCommandAtPlayer(Mob.golem, nickname)
+    );
+  }
+
+  if (filterd3Characters.length > 0) {
+    executeMinecraftCommand(
+      ws,
+      buildGiveCommandAtPlayer(MCItem.diamond, filterd3Characters.length)
+    );
+  }
+
+  if (filterd4Characters.length > 0) {
+    executeMinecraftCommand(
+      ws,
+      buildGiveCommandAtPlayer(MCItem.iron_ingot, filterd4Characters.length)
+    );
+  }
+
+  if (filterd5Characters.length > 0) {
+    executeMinecraftCommand(
+      ws,
+      buildGiveCommandAtPlayer(MCItem.gold_ingot, filterd5Characters.length)
+    );
+  }
+
+  if (filterd6Characters.length > 0) {
+    executeMinecraftCommand(
+      ws,
+      buildGiveCommandAtPlayer(MCItem.emerald, filterd6Characters.length)
+    );
+  }
+
+  if (filterd7Characters.length > 0) {
+    executeMinecraftCommand(
+      ws,
+      buildGiveCommandAtPlayer(MCItem.obsidian, filterd7Characters.length)
+    );
+  }
+
+  for await (const character of filterd8Characters) {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    executeMinecraftCommand(
+      ws,
+      buildMobSpawnCommandAtPlayer(Mob.fireworks_rocket, nickname)
+    );
+  }
+
+  if (filterd9Characters.length > 0) {
+    executeMinecraftCommand(
+      ws,
+      buildGiveCommandAtPlayer(MCItem.golden_apple, filterd9Characters.length)
+    );
+  }
+
+  if (filterd0Characters.length > 0) {
+    executeMinecraftCommand(
+      ws,
+      buildGiveCommandAtPlayer(MCItem.ender_pearl, filterd0Characters.length)
+    );
   }
 };

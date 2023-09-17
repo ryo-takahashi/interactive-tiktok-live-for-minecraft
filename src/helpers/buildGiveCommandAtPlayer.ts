@@ -1,5 +1,8 @@
 import { MCItem } from "../types/MCItem";
 
-export const buildGiveCommandAtPlayer = (item: MCItem): string => {
-  return `give @a ${item} 1`;
+export const buildGiveCommandAtPlayer = (
+  item: MCItem,
+  count: number
+): string => {
+  return `give @a ${item} ${count}`;
 };
