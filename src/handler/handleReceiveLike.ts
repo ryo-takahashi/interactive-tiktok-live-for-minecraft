@@ -1,6 +1,6 @@
 import { buildMobSpawnCommand } from "../helpers/buildMobSpawnCommand";
 import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
-import { postMinecraftCommand } from "../helpers/postMinecraftCommand";
+import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
 import { sanitizeNameTagText } from "../helpers/sanitizeNameTagText";
 import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
@@ -29,7 +29,7 @@ const spawnRandomEnemyAtPlayer = async (
     await new Promise((resolve) => setTimeout(resolve, 200));
     const enemies = [Mob.zombie, Mob.skeleton, Mob.creeper];
     const randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
-    postMinecraftCommand(
+    executeMinecraftCommand(
       ws,
       buildMobSpawnCommandAtPlayer(randomEnemy, mobNameTag)
     );
@@ -43,21 +43,24 @@ const spawnTNTFeverIfNeeded = async (ws: WebSocket, mobNameTag: string) => {
   if (!needSpawn) {
     return;
   }
-  postMinecraftCommand(
+  executeMinecraftCommand(
     ws,
     `titleraw @a title {"rawtext":[{"text":"§c§lTNT FEVER!!"}]}`
   );
-  postMinecraftCommand(
+  executeMinecraftCommand(
     ws,
     `titleraw @a subtitle {"rawtext":[{"text":"by ${sanitizeNameTagText(
       mobNameTag
     )}"}]}`
   );
-  postMinecraftCommand(ws, "playsound random.levelup @a");
+  executeMinecraftCommand(ws, "playsound random.levelup @a");
   const emptyArray = Array.from({ length: 15 }, () => "");
   for await (const empty of emptyArray) {
     await new Promise((resolve) => setTimeout(resolve, 200));
-    postMinecraftCommand(ws, buildMobSpawnCommandAtPlayer(Mob.tnt, mobNameTag));
+    executeMinecraftCommand(
+      ws,
+      buildMobSpawnCommandAtPlayer(Mob.tnt, mobNameTag)
+    );
   }
 };
 
@@ -69,7 +72,7 @@ const spawnZombieAtPlayer = async (
   const emptyArray = Array.from({ length: count }, () => "");
   for await (const empty of emptyArray) {
     await new Promise((resolve) => setTimeout(resolve, 200));
-    postMinecraftCommand(
+    executeMinecraftCommand(
       ws,
       buildMobSpawnCommandAtPlayer(Mob.zombie, mobNameTag)
     );
@@ -80,7 +83,7 @@ const spawnVindicator = async (ws: WebSocket, count: number) => {
   const emptyArray = Array.from({ length: count }, () => "");
   for await (const empty of emptyArray) {
     await new Promise((resolve) => setTimeout(resolve, 200));
-    postMinecraftCommand(
+    executeMinecraftCommand(
       ws,
       buildMobSpawnCommand(Mob.vindicator, { x: 0, y: 0, z: 0 })
     );

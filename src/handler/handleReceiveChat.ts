@@ -2,7 +2,7 @@ import { spawnEntityByComment } from "../commands/spawnEntityByComment";
 import { buildGiveCommandAtPlayer } from "../helpers/buildGiveCommandAtPlayer";
 import { buildMobSpawnCommand } from "../helpers/buildMobSpawnCommand";
 import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
-import { postMinecraftCommand } from "../helpers/postMinecraftCommand";
+import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
 import { sanitizeNameTagText } from "../helpers/sanitizeNameTagText";
 import { MCItem } from "../types/MCItem";
 import { Mob } from "../types/Mob";
@@ -13,8 +13,7 @@ export const handleReceiveChat = async (
   data: any
 ) => {
   const { comment, nickname, uniqueId } = data;
-  console.log(`${nickname}@${uniqueId}): ${comment}`);
-  if (ws === undefined) {
+  if (!ws) {
     return;
   }
   postChat(ws, nickname, uniqueId, comment);
@@ -22,7 +21,7 @@ export const handleReceiveChat = async (
 };
 
 const spawnCreeper = async (ws: WebSocket, mobNameTag: string) => {
-  postMinecraftCommand(
+  executeMinecraftCommand(
     ws,
     buildMobSpawnCommandAtPlayer(Mob.creeper, mobNameTag)
   );
@@ -34,7 +33,7 @@ const postChat = async (
   uniqueId: string,
   comment: string
 ) => {
-  postMinecraftCommand(
+  executeMinecraftCommand(
     ws,
     `say ${sanitizeNameTagText(nickname)}@${uniqueId}: ${sanitizeNameTagText(
       comment

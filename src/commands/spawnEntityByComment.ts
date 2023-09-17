@@ -1,6 +1,6 @@
 import { buildGiveCommandAtPlayer } from "../helpers/buildGiveCommandAtPlayer";
 import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
-import { postMinecraftCommand } from "../helpers/postMinecraftCommand";
+import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
 import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
 import { SpawnCommentType } from "../types/SpawnCommentType";
@@ -19,45 +19,57 @@ export const spawnEntityByComment = async (
     switch (character) {
       case SpawnCommentType._1:
         await new Promise((resolve) => setTimeout(resolve, 500));
-        postMinecraftCommand(
+        executeMinecraftCommand(
           ws,
           buildMobSpawnCommandAtPlayer(Mob.tnt, nickname)
         );
         break;
       case SpawnCommentType._2:
         await new Promise((resolve) => setTimeout(resolve, 100));
-        postMinecraftCommand(
+        executeMinecraftCommand(
           ws,
           buildMobSpawnCommandAtPlayer(Mob.golem, nickname)
         );
         break;
       case SpawnCommentType._3:
-        postMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.diamond));
+        executeMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.diamond));
         break;
       case SpawnCommentType._4:
-        postMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.iron_ingot));
+        executeMinecraftCommand(
+          ws,
+          buildGiveCommandAtPlayer(MCItem.iron_ingot)
+        );
         break;
       case SpawnCommentType._5:
-        postMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.gold_ingot));
+        executeMinecraftCommand(
+          ws,
+          buildGiveCommandAtPlayer(MCItem.gold_ingot)
+        );
         break;
       case SpawnCommentType._6:
-        postMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.emerald));
+        executeMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.emerald));
         break;
       case SpawnCommentType._7:
-        postMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.obsidian));
+        executeMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.obsidian));
         break;
       case SpawnCommentType._8:
         await new Promise((resolve) => setTimeout(resolve, 100));
-        postMinecraftCommand(
+        executeMinecraftCommand(
           ws,
           buildMobSpawnCommandAtPlayer(Mob.fireworks_rocket, nickname)
         );
         break;
       case SpawnCommentType._9:
-        postMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.golden_apple));
+        executeMinecraftCommand(
+          ws,
+          buildGiveCommandAtPlayer(MCItem.golden_apple)
+        );
         break;
       case SpawnCommentType._0:
-        postMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.ender_pearl));
+        executeMinecraftCommand(
+          ws,
+          buildGiveCommandAtPlayer(MCItem.ender_pearl)
+        );
         break;
       default:
         break;

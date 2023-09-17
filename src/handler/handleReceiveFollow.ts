@@ -1,6 +1,6 @@
 import { buildMobSpawnCommand } from "../helpers/buildMobSpawnCommand";
 import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
-import { postMinecraftCommand } from "../helpers/postMinecraftCommand";
+import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
 import { sanitizeNameTagText } from "../helpers/sanitizeNameTagText";
 import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
@@ -10,21 +10,20 @@ export const handleReceiveFollow = async (
   data: any
 ) => {
   const { nickname, uniqueId } = data;
-  console.log("Followed by", `${nickname}@${uniqueId}`);
-  if (ws === undefined) {
+  if (!ws) {
     return;
   }
-  postMinecraftCommand(
+  executeMinecraftCommand(
     ws,
     `titleraw @a title {"rawtext":[{"text":"§c§lTNT Rain"}]}`
   );
-  postMinecraftCommand(
+  executeMinecraftCommand(
     ws,
     `titleraw @a subtitle {"rawtext":[{"text":"followed by ${sanitizeNameTagText(
       nickname
     )}"}]}`
   );
-  postMinecraftCommand(ws, "playsound random.levelup @a");
+  executeMinecraftCommand(ws, "playsound random.levelup @a");
   spawnTNTAtPlayer(ws, 15);
 };
 
@@ -32,7 +31,10 @@ const spawnTNTAtPlayer = async (ws: WebSocket, count: number) => {
   const arr = Array.from({ length: count }, () => "");
   for await (const empty of arr) {
     await new Promise((resolve) => setTimeout(resolve, 500));
-    postMinecraftCommand(ws, buildMobSpawnCommandAtPlayer(Mob.tnt, "TNT Rain"));
+    executeMinecraftCommand(
+      ws,
+      buildMobSpawnCommandAtPlayer(Mob.tnt, "TNT Rain")
+    );
   }
 };
 
@@ -40,7 +42,7 @@ const spawnTNT = async (ws: WebSocket, count: number) => {
   const arr = Array.from({ length: count }, () => "");
   for await (const empty of arr) {
     await new Promise((resolve) => setTimeout(resolve, 200));
-    postMinecraftCommand(
+    executeMinecraftCommand(
       ws,
       buildMobSpawnCommand(Mob.tnt, { x: 0, y: 0, z: 0 })
     );
