@@ -9,6 +9,7 @@ import { handleReceiveChat } from "./handler/handleReceiveChat";
 import { handleStreamEnd } from "./handler/handleStreamEnd";
 import { handleReceiveMinecraftMessage } from "./handler/handleReceiveMinecraftMessage";
 import { connect } from "http2";
+import { subscribeMinecraftEvents } from "./handler/subscribeMinecraftEvent";
 
 const wss = new WebSocketServer({ port: 8080 });
 var currentWebSocket: WebSocket | undefined = undefined;
@@ -68,6 +69,7 @@ wss.on("connection", async (ws, req) => {
     handleStreamEnd(actionId);
   });
 
+  await subscribeMinecraftEvents(currentWebSocket);
   ws.on("message", async (rawData) => {
     handleReceiveMinecraftMessage(currentWebSocket, rawData);
   });
