@@ -1,7 +1,7 @@
 import { buildMobSpawnCommand } from "../helpers/buildMobSpawnCommand";
 import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
 import { postMinecraftCommand } from "../helpers/postMinecraftCommand";
-import { sanitizeCommandText } from "../helpers/sanitizeCommandText";
+import { sanitizeNameTagText } from "../helpers/sanitizeNameTagText";
 import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
 
@@ -20,7 +20,7 @@ export const handleReceiveFollow = async (
   );
   postMinecraftCommand(
     ws,
-    `titleraw @a subtitle {"rawtext":[{"text":"followed by ${sanitizeCommandText(
+    `titleraw @a subtitle {"rawtext":[{"text":"followed by ${sanitizeNameTagText(
       nickname
     )}"}]}`
   );

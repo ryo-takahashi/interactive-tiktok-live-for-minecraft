@@ -1,10 +1,10 @@
 import { Mob } from "../types/Mob";
-import { sanitizeCommandText } from "./sanitizeCommandText";
+import { sanitizeNameTagText } from "./sanitizeNameTagText";
 
 export const buildMobSpawnCommandAtPlayer = (
   mob: Mob,
   mobNameTag: string
 ): string => {
-  const replacedNameTag = sanitizeCommandText(mobNameTag);
+  const replacedNameTag = sanitizeNameTagText(mobNameTag);
   return `summon ${mob} ${replacedNameTag} ~~~`;
 };

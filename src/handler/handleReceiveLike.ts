@@ -1,7 +1,7 @@
 import { buildMobSpawnCommand } from "../helpers/buildMobSpawnCommand";
 import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
 import { postMinecraftCommand } from "../helpers/postMinecraftCommand";
-import { sanitizeCommandText } from "../helpers/sanitizeCommandText";
+import { sanitizeNameTagText } from "../helpers/sanitizeNameTagText";
 import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
 
@@ -49,7 +49,7 @@ const spawnTNTFeverIfNeeded = async (ws: WebSocket, mobNameTag: string) => {
   );
   postMinecraftCommand(
     ws,
-    `titleraw @a subtitle {"rawtext":[{"text":"by ${sanitizeCommandText(
+    `titleraw @a subtitle {"rawtext":[{"text":"by ${sanitizeNameTagText(
       mobNameTag
     )}"}]}`
   );
