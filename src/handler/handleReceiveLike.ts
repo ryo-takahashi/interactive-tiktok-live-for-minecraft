@@ -2,6 +2,7 @@ import { buildMobSpawnCommand } from "../helpers/buildMobSpawnCommand";
 import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
 import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
 import { sanitizeNameTagText } from "../helpers/sanitizeNameTagText";
+import { SpawnMobManager } from "../manager/SpawnMobManager";
 import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
 
@@ -27,12 +28,12 @@ const spawnRandomEnemyAtPlayer = async (
   const emptyArray = Array.from({ length: count }, () => "");
   for await (const empty of emptyArray) {
     await new Promise((resolve) => setTimeout(resolve, 200));
-    const enemies = [Mob.zombie, Mob.skeleton, Mob.creeper];
+    const enemies = [Mob.zombie, Mob.creeper];
     const randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
-    executeMinecraftCommand(
-      ws,
-      buildMobSpawnCommandAtPlayer(randomEnemy, mobNameTag)
-    );
+    SpawnMobManager.instance.spawnMobSubject.next({
+      mob: randomEnemy,
+      mobNameTag,
+    });
     spawnTNTFeverIfNeeded(ws, mobNameTag);
   }
 };

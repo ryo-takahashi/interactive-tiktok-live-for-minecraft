@@ -10,6 +10,7 @@ import { handleStreamEnd } from "./handler/handleStreamEnd";
 import { handleReceiveMinecraftMessage } from "./handler/handleReceiveMinecraftMessage";
 import { connect } from "http2";
 import { subscribeMinecraftEvents } from "./handler/subscribeMinecraftEvent";
+import { SpawnMobManager } from "./manager/SpawnMobManager";
 
 const wss = new WebSocketServer({ port: 8080 });
 var currentWebSocket: WebSocket | undefined = undefined;
@@ -28,6 +29,7 @@ wss.on("connection", async (ws, req) => {
   }
 
   currentWebSocket = ws;
+  SpawnMobManager.instance.setCurrentWebSocket(ws);
 
   const tiktokLiveConnection = new WebcastPushConnection(
     connectToTikTokUserName
