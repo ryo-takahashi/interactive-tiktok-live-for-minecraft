@@ -6,5 +6,5 @@ export const buildMobSpawnCommandAtPlayer = (
   mobNameTag: string
 ): string => {
   const replacedNameTag = sanitizeNameTagText(mobNameTag);
-  return `summon ${mob} ${replacedNameTag} ~~~`;
+  return `summon ${mob} "${replacedNameTag}" ~~~`;
 };

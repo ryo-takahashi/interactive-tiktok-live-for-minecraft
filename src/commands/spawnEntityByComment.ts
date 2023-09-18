@@ -55,7 +55,7 @@ export const spawnEntityByComment = async (
       ws,
       buildSayCommand(
         `${sanitizeNameTagText(nickname)}がTNTを${
-          filterd2Characters.length
+          filterd1Characters.length
         }個召喚した`
       )
     );
@@ -74,18 +74,16 @@ export const spawnEntityByComment = async (
     executeMinecraftCommand(
       ws,
       buildSayCommand(
-        `${sanitizeNameTagText(nickname)}がゴーレムを${
+        `${sanitizeNameTagText(nickname)}がダイヤを${
           filterd2Characters.length
-        }体召喚した`
+        }個与えた`
       )
     );
-    for await (const character of filterd2Characters) {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-      executeMinecraftCommand(
-        ws,
-        buildMobSpawnCommandAtPlayer(Mob.golem, nickname)
-      );
-    }
+
+    executeMinecraftCommand(
+      ws,
+      buildGiveCommandAtPlayer(MCItem.diamond, filterd2Characters.length)
+    );
   }
 
   if (filterd3Characters.length > 0) {
@@ -93,68 +91,63 @@ export const spawnEntityByComment = async (
     executeMinecraftCommand(
       ws,
       buildSayCommand(
-        `${sanitizeNameTagText(nickname)}がダイヤを${
+        `${sanitizeNameTagText(nickname)}が鉄インゴットを${
           filterd3Characters.length
         }個与えた`
       )
     );
-
     executeMinecraftCommand(
       ws,
-      buildGiveCommandAtPlayer(MCItem.diamond, filterd3Characters.length)
+      buildGiveCommandAtPlayer(MCItem.iron_ingot, filterd3Characters.length)
     );
   }
 
   if (filterd4Characters.length > 0) {
     executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.orb));
+    const seconds = filterd4Characters.length * 10;
     executeMinecraftCommand(
       ws,
       buildSayCommand(
-        `${sanitizeNameTagText(nickname)}が鉄インゴットを${
-          filterd4Characters.length
-        }個与えた`
+        `${sanitizeNameTagText(
+          nickname
+        )}がダメージ耐性効果を${seconds}秒間与えた`
       )
     );
     executeMinecraftCommand(
       ws,
-      buildGiveCommandAtPlayer(MCItem.iron_ingot, filterd4Characters.length)
+      buildGiveEffectCommandAtPlayer(MCEffect.resistance, seconds, 2)
     );
   }
 
   if (filterd5Characters.length > 0) {
     executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.orb));
+    const seconds = filterd5Characters.length * 10;
     executeMinecraftCommand(
       ws,
       buildSayCommand(
-        `${sanitizeNameTagText(nickname)}が金インゴットを${
-          filterd5Characters.length
-        }個与えた`
+        `${sanitizeNameTagText(
+          nickname
+        )}が移動速度上昇効果を${seconds}秒間与えた`
       )
     );
     executeMinecraftCommand(
       ws,
-      buildGiveCommandAtPlayer(MCItem.gold_ingot, filterd5Characters.length)
+      buildGiveEffectCommandAtPlayer(MCEffect.speed, seconds, 5)
     );
   }
 
   if (filterd6Characters.length > 0) {
     executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.orb));
-    const seconds = 5;
+    const seconds = filterd6Characters.length * 10;
     executeMinecraftCommand(
       ws,
       buildSayCommand(
-        `${sanitizeNameTagText(nickname)}が移動速度上昇効果を${
-          filterd6Characters.length * seconds
-        }秒間与えた`
+        `${sanitizeNameTagText(nickname)}が低速落下効果を${seconds}秒間与えた`
       )
     );
     executeMinecraftCommand(
       ws,
-      buildGiveEffectCommandAtPlayer(
-        MCEffect.speed,
-        filterd6Characters.length * seconds,
-        5
-      )
+      buildGiveEffectCommandAtPlayer(MCEffect.slow_falling, seconds, 1)
     );
   }
 
