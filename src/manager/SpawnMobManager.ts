@@ -1,7 +1,10 @@
 import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
 import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
-import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
+import {
+  buildMobSpawnCommandAtPlayer,
+  buildMobSpawnWithEventCommandAtPlayer,
+} from "../helpers/buildMobSpawnCommandAtPlayer";
 import { Subject, throttle, interval } from "rxjs";
 
 export class SpawnMobManager {
@@ -18,7 +21,11 @@ export class SpawnMobManager {
         }
         executeMinecraftCommand(
           this.currentWebSocket,
-          buildMobSpawnCommandAtPlayer(mob, mobNameTag)
+          buildMobSpawnWithEventCommandAtPlayer(
+            mob,
+            "minecraft:start_exploding_forced",
+            mobNameTag
+          )
         );
       });
   }

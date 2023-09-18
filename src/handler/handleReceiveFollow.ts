@@ -22,9 +22,7 @@ export const handleReceiveFollow = async (
   );
   executeMinecraftCommand(
     ws,
-    `titleraw @a subtitle {"rawtext":[{"text":"${sanitizeNameTagText(
-      nickname
-    )}がフォローしました"}]}`
+    `titleraw @a subtitle {"rawtext":[{"text":"${nickname}がフォローしました"}]}`
   );
   executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.levelup));
   spawnTNTRainAtPlayer(ws);

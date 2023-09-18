@@ -153,27 +153,35 @@ export const spawnEntityByComment = async (
 
   if (filterd7Characters.length > 0) {
     executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.orb));
+    const seconds = filterd7Characters.length * 10;
+    executeMinecraftCommand(
+      ws,
+      buildSayCommand(
+        `${sanitizeNameTagText(
+          nickname
+        )}がジャンプ強化効果を${seconds}秒間与えた`
+      )
+    );
+    executeMinecraftCommand(
+      ws,
+      buildGiveEffectCommandAtPlayer(MCEffect.jump_boost, seconds, 5)
+    );
+  }
+
+  if (filterd8Characters.length > 0) {
+    executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.orb));
     executeMinecraftCommand(
       ws,
       buildSayCommand(
         `${sanitizeNameTagText(nickname)}が黒曜石を${
-          filterd7Characters.length
+          filterd8Characters.length
         }個与えた`
       )
     );
     executeMinecraftCommand(
       ws,
-      buildGiveCommandAtPlayer(MCItem.obsidian, filterd7Characters.length)
+      buildGiveCommandAtPlayer(MCItem.obsidian, filterd8Characters.length)
     );
-  }
-
-  for await (const character of filterd8Characters) {
-    await new Promise((resolve) => setTimeout(resolve, 100));
-    const commands = buildFireworkRainSpawnCommandsAtPlayer();
-    for await (const command of commands) {
-      await new Promise((resolve) => setTimeout(resolve, 50));
-      executeMinecraftCommand(ws, command);
-    }
   }
 
   if (filterd9Characters.length > 0) {
@@ -197,14 +205,14 @@ export const spawnEntityByComment = async (
     executeMinecraftCommand(
       ws,
       buildSayCommand(
-        `${sanitizeNameTagText(nickname)}がエンダーパールを${
+        `${sanitizeNameTagText(nickname)}がエンダーアイを${
           filterd0Characters.length
         }個与えた`
       )
     );
     executeMinecraftCommand(
       ws,
-      buildGiveCommandAtPlayer(MCItem.ender_pearl, filterd0Characters.length)
+      buildGiveCommandAtPlayer(MCItem.ender_eye, filterd0Characters.length)
     );
   }
 };

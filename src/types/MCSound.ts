@@ -3,4 +3,5 @@ export enum MCSound {
   orb = "random.orb",
   bell = "note.bell",
   click = "random.click",
+  raid_horn = "raid.horn",
 }

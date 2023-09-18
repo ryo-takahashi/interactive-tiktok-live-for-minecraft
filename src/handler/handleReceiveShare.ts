@@ -21,9 +21,7 @@ export const handleReceiveShare = async (
   );
   executeMinecraftCommand(
     ws,
-    `titleraw @a subtitle {"rawtext":[{"text":"${sanitizeNameTagText(
-      nickname
-    )}がシェアしました"}]}`
+    `titleraw @a subtitle {"rawtext":[{"text":"${nickname}がシェアしました"}]}`
   );
   executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.levelup));
   spawnTNTRainAtPlayer(ws);
