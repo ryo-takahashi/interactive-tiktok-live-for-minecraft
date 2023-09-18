@@ -1,8 +1,10 @@
 import { buildMobSpawnCommand } from "../helpers/buildMobSpawnCommand";
 import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
+import { buildPlaysoundCommand } from "../helpers/buildPlaysoundCommand";
 import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
 import { sanitizeNameTagText } from "../helpers/sanitizeNameTagText";
 import { SpawnMobManager } from "../manager/SpawnMobManager";
+import { MCSound } from "../types/MCSound";
 import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
 
@@ -54,10 +56,11 @@ const spawnTNTFeverIfNeeded = async (ws: WebSocket, mobNameTag: string) => {
       mobNameTag
     )}"}]}`
   );
-  executeMinecraftCommand(ws, "playsound random.levelup @a");
+  executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.levelup));
   const emptyArray = Array.from({ length: 15 }, () => "");
   for await (const empty of emptyArray) {
     await new Promise((resolve) => setTimeout(resolve, 200));
+    executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.click));
     executeMinecraftCommand(
       ws,
       buildMobSpawnCommandAtPlayer(Mob.tnt, mobNameTag)

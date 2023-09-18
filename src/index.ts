@@ -11,6 +11,8 @@ import { handleReceiveMinecraftMessage } from "./handler/handleReceiveMinecraftM
 import { connect } from "http2";
 import { subscribeMinecraftEvents } from "./handler/subscribeMinecraftEvent";
 import { SpawnMobManager } from "./manager/SpawnMobManager";
+import { executeMinecraftCommand } from "./helpers/postMinecraftCommand";
+import { buildHiddenCommandLogCommand } from "./helpers/buildHiddenCommandLogCommand";
 
 const wss = new WebSocketServer({ port: 8080 });
 var currentWebSocket: WebSocket | undefined = undefined;
@@ -18,16 +20,16 @@ var currentTiktokLiveConnection: WebcastPushConnection | undefined = undefined;
 
 wss.on("connection", async (ws, req) => {
   if (!req.url) {
-    console.error("No TikTok username provided");
+    console.error("Failed Connect Minecraft: No TikTok username provided");
+    return;
+  }
+  const connectToTikTokUserName = req.url.replace("/", "");
+  if (connectToTikTokUserName === "") {
+    console.error("Failed Connect Minecraft:No TikTok username provided");
     return;
   }
   console.log("Connected Minecraft");
-  const connectToTikTokUserName = req.url.replace("/", "");
-  if (connectToTikTokUserName === "") {
-    console.error("No TikTok username provided");
-    return;
-  }
-
+  executeMinecraftCommand(ws, buildHiddenCommandLogCommand());
   currentWebSocket = ws;
   SpawnMobManager.instance.setCurrentWebSocket(ws);
 
