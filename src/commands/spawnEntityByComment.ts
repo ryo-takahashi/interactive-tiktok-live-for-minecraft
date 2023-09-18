@@ -5,6 +5,8 @@ import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
 import { SpawnCommentType } from "../types/SpawnCommentType";
 import { MCItem } from "../types/MCItem";
+import { buildGiveEffectCommandAtPlayer } from "../helpers/buildGiveEffectCommandAtPlayer";
+import { MCEffect } from "../types/MCEffect";
 
 export const spawnEntityByComment = async (
   ws: WebSocket,
@@ -83,7 +85,11 @@ export const spawnEntityByComment = async (
   if (filterd6Characters.length > 0) {
     executeMinecraftCommand(
       ws,
-      buildGiveCommandAtPlayer(MCItem.emerald, filterd6Characters.length)
+      buildGiveEffectCommandAtPlayer(
+        MCEffect.speed,
+        filterd6Characters.length * 5,
+        5
+      )
     );
   }
 
