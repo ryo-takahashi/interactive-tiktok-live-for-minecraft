@@ -1,13 +1,22 @@
 import { buildGiveCommandAtPlayer } from "../helpers/buildGiveCommandAtPlayer";
 import { buildMobSpawnCommand } from "../helpers/buildMobSpawnCommand";
-import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
+import {
+  buildMobSpawnCommandAtPlayer,
+  buildMobSpawnWithEventCommandAtPlayer,
+} from "../helpers/buildMobSpawnCommandAtPlayer";
 import { buildPlaysoundCommand } from "../helpers/buildPlaysoundCommand";
 import { buildSayCommand } from "../helpers/buildSayCommand";
+import { buildTNTRainSpawnCommandsAtPlayer } from "../helpers/buildTNTRainSpawnCommandAtPlayer";
+import {
+  buildSubTitleRawCommand,
+  buildTitleRawCommand,
+} from "../helpers/buildTitleRawCommand";
 import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
 import { sanitizeNameTagText } from "../helpers/sanitizeNameTagText";
 import { SpawnMobManager } from "../manager/SpawnMobManager";
 import { MCItem } from "../types/MCItem";
 import { MCSound } from "../types/MCSound";
+import { MCSpawnEvent } from "../types/MCSpawnEvent";
 import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
 
@@ -33,13 +42,14 @@ const spawnRandomEnemyAtPlayer = async (
   const emptyArray = Array.from({ length: count }, () => "");
   for await (const empty of emptyArray) {
     await new Promise((resolve) => setTimeout(resolve, 200));
-    const enemies = [Mob.zombie, Mob.creeper];
+    const enemies = [Mob.creeper];
     const randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
     SpawnMobManager.instance.spawnMobSubject.next({
       mob: randomEnemy,
       mobNameTag,
     });
     spawnTNTFeverIfNeeded(ws, mobNameTag);
+    spawnChargedCreeperIfNeeded(ws, mobNameTag);
     giveElytraIfNeeded(ws, mobNameTag);
   }
 };
@@ -50,22 +60,44 @@ const spawnTNTFeverIfNeeded = async (ws: WebSocket, mobNameTag: string) => {
   if (!needSpawn) {
     return;
   }
-  executeMinecraftCommand(
-    ws,
-    `titleraw @a title {"rawtext":[{"text":"§c§lTNT FEVER!!"}]}`
-  );
-  executeMinecraftCommand(
-    ws,
-    `titleraw @a subtitle {"rawtext":[{"text":"by ${mobNameTag}"}]}`
-  );
+  executeMinecraftCommand(ws, buildTitleRawCommand(`§c§lTNT FEVER`));
+  executeMinecraftCommand(ws, buildSubTitleRawCommand(`by ${mobNameTag}`));
   executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.levelup));
-  const emptyArray = Array.from({ length: 15 }, () => "");
-  for await (const empty of emptyArray) {
-    await new Promise((resolve) => setTimeout(resolve, 200));
+  const commands = buildTNTRainSpawnCommandsAtPlayer();
+  for await (const command of commands) {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.click));
+    executeMinecraftCommand(ws, command);
+  }
+};
+
+const spawnChargedCreeperIfNeeded = async (
+  ws: WebSocket,
+  mobNameTag: string
+) => {
+  // 0.03%の確率で帯電クリーパーをN体発生させる
+  const needExecuteCommand = Math.random() < 0.0003;
+  if (!needExecuteCommand) {
+    return;
+  }
+  executeMinecraftCommand(
+    ws,
+    buildTitleRawCommand(`§e§o§l帯電クリーパータイム`)
+  );
+  executeMinecraftCommand(ws, buildSubTitleRawCommand(`by ${mobNameTag}`));
+  executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.raid_horn));
+  const spawnCount = 10;
+  const arr = Array.from({ length: spawnCount }, () => "");
+  for await (const empty of arr) {
+    await new Promise((resolve) => setTimeout(resolve, 50));
     executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.click));
     executeMinecraftCommand(
       ws,
-      buildMobSpawnCommandAtPlayer(Mob.tnt, mobNameTag)
+      buildMobSpawnWithEventCommandAtPlayer(
+        Mob.creeper,
+        MCSpawnEvent.become_charged,
+        mobNameTag
+      )
     );
   }
 };
@@ -78,12 +110,9 @@ const giveElytraIfNeeded = async (ws: WebSocket, mobNameTag: string) => {
   }
   executeMinecraftCommand(
     ws,
-    `titleraw @a title {"rawtext":[{"text":"§e§o§lエリトラタイム突入!!!"}]}`
+    buildTitleRawCommand(`§e§o§lハイパーエリトラタイム`)
   );
-  executeMinecraftCommand(
-    ws,
-    `titleraw @a subtitle {"rawtext":[{"text":"by ${mobNameTag}"}]}`
-  );
+  executeMinecraftCommand(ws, buildSubTitleRawCommand(`by ${mobNameTag}`));
   executeMinecraftCommand(
     ws,
     buildSayCommand(`${sanitizeNameTagText(mobNameTag)}がエリトラを与えた`)

@@ -88,17 +88,18 @@ export const spawnEntityByComment = async (
 
   if (filterd3Characters.length > 0) {
     executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.orb));
+    const seconds = filterd3Characters.length * 10;
     executeMinecraftCommand(
       ws,
       buildSayCommand(
-        `${sanitizeNameTagText(nickname)}が鉄インゴットを${
-          filterd3Characters.length
-        }個与えた`
+        `${sanitizeNameTagText(
+          nickname
+        )}が採掘速度上昇効果を${seconds}秒間与えた`
       )
     );
     executeMinecraftCommand(
       ws,
-      buildGiveCommandAtPlayer(MCItem.iron_ingot, filterd3Characters.length)
+      buildGiveEffectCommandAtPlayer(MCEffect.haste, seconds, 2)
     );
   }
 
@@ -142,12 +143,12 @@ export const spawnEntityByComment = async (
     executeMinecraftCommand(
       ws,
       buildSayCommand(
-        `${sanitizeNameTagText(nickname)}が低速落下効果を${seconds}秒間与えた`
+        `${sanitizeNameTagText(nickname)}が火炎耐性効果を${seconds}秒間与えた`
       )
     );
     executeMinecraftCommand(
       ws,
-      buildGiveEffectCommandAtPlayer(MCEffect.slow_falling, seconds, 1)
+      buildGiveEffectCommandAtPlayer(MCEffect.fire_resistance, seconds, 1)
     );
   }
 
@@ -157,14 +158,12 @@ export const spawnEntityByComment = async (
     executeMinecraftCommand(
       ws,
       buildSayCommand(
-        `${sanitizeNameTagText(
-          nickname
-        )}がジャンプ強化効果を${seconds}秒間与えた`
+        `${sanitizeNameTagText(nickname)}が暗視効果を${seconds}秒間与えた`
       )
     );
     executeMinecraftCommand(
       ws,
-      buildGiveEffectCommandAtPlayer(MCEffect.jump_boost, seconds, 5)
+      buildGiveEffectCommandAtPlayer(MCEffect.night_vision, seconds, 5)
     );
   }
 

@@ -6,6 +6,7 @@ import {
   buildMobSpawnWithEventCommandAtPlayer,
 } from "../helpers/buildMobSpawnCommandAtPlayer";
 import { Subject, throttle, interval } from "rxjs";
+import { MCSpawnEvent } from "../types/MCSpawnEvent";
 
 export class SpawnMobManager {
   private static _instance: SpawnMobManager;
@@ -23,7 +24,7 @@ export class SpawnMobManager {
           this.currentWebSocket,
           buildMobSpawnWithEventCommandAtPlayer(
             mob,
-            "minecraft:start_exploding_forced",
+            MCSpawnEvent.start_exploding_forced,
             mobNameTag
           )
         );

@@ -1,3 +1,4 @@
+import { MCSpawnEvent } from "../types/MCSpawnEvent";
 import { Mob } from "../types/Mob";
 import { sanitizeNameTagText } from "./sanitizeNameTagText";
 
@@ -11,7 +12,7 @@ export const buildMobSpawnCommandAtPlayer = (
 
 export const buildMobSpawnWithEventCommandAtPlayer = (
   mob: Mob,
-  spawnEvent: string,
+  spawnEvent: MCSpawnEvent,
   mobNameTag: string
 ): string => {
   const replacedNameTag = sanitizeNameTagText(mobNameTag);

@@ -1,6 +1,10 @@
 import { buildMobSpawnCommand } from "../helpers/buildMobSpawnCommand";
 import { buildPlaysoundCommand } from "../helpers/buildPlaysoundCommand";
 import { buildTNTRainSpawnCommandsAtPlayer } from "../helpers/buildTNTRainSpawnCommandAtPlayer";
+import {
+  buildSubTitleRawCommand,
+  buildTitleRawCommand,
+} from "../helpers/buildTitleRawCommand";
 import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
 import { sanitizeNameTagText } from "../helpers/sanitizeNameTagText";
 import { MCSound } from "../types/MCSound";
@@ -15,13 +19,10 @@ export const handleReceiveShare = async (
   if (!ws) {
     return;
   }
+  executeMinecraftCommand(ws, buildTitleRawCommand(`§c§lTNT Rain`));
   executeMinecraftCommand(
     ws,
-    `titleraw @a title {"rawtext":[{"text":"§c§lTNT Rain"}]}`
-  );
-  executeMinecraftCommand(
-    ws,
-    `titleraw @a subtitle {"rawtext":[{"text":"${nickname}がシェアしました"}]}`
+    buildSubTitleRawCommand(`${nickname}がシェアしました`)
   );
   executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.levelup));
   spawnTNTRainAtPlayer(ws);
