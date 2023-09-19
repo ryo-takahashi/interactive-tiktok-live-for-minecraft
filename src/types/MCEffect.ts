@@ -6,4 +6,5 @@ export enum MCEffect {
   slow_falling = "slow_falling",
   haste = "haste",
   night_vision = "night_vision",
+  conduit_power = "conduit_power",
 }
