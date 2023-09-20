@@ -12,8 +12,10 @@ import {
   buildTitleRawCommand,
 } from "../helpers/buildTitleRawCommand";
 import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
+import { replaceCommand } from "../helpers/replaceCommand";
 import { sanitizeNameTagText } from "../helpers/sanitizeNameTagText";
-import { SpawnMobManager } from "../manager/SpawnMobManager";
+import { CommandExecutor } from "../manager/CommandExecutor";
+import { LiveConfig } from "../types/LiveConfig";
 import { MCItem } from "../types/MCItem";
 import { MCSound } from "../types/MCSound";
 import { MCSpawnEvent } from "../types/MCSpawnEvent";
@@ -22,7 +24,8 @@ import { WebSocket } from "ws";
 
 export const handleReceiveLike = async (
   ws: WebSocket | undefined,
-  data: any
+  data: any,
+  config: LiveConfig
 ) => {
   const { likeCount, nickname, uniqueId, totalLikeCount } = data;
   console.log(
@@ -31,118 +34,41 @@ export const handleReceiveLike = async (
   if (ws === undefined) {
     return;
   }
-  spawnRandomEnemyAtPlayer(ws, nickname, likeCount);
-};
-
-const spawnRandomEnemyAtPlayer = async (
-  ws: WebSocket,
-  mobNameTag: string,
-  count: number
-) => {
-  const emptyArray = Array.from({ length: count }, () => "");
-  for await (const empty of emptyArray) {
-    await new Promise((resolve) => setTimeout(resolve, 200));
-    const enemies = [Mob.creeper];
-    const randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
-    SpawnMobManager.instance.spawnMobSubject.next({
-      mob: randomEnemy,
-      mobNameTag,
-    });
-    spawnTNTFeverIfNeeded(ws, mobNameTag);
-    spawnChargedCreeperIfNeeded(ws, mobNameTag);
-    giveElytraIfNeeded(ws, mobNameTag);
-  }
-};
-
-const spawnTNTFeverIfNeeded = async (ws: WebSocket, mobNameTag: string) => {
-  // 0.333%の確率でTNT Feverを発生させる
-  const needSpawn = Math.random() < 0.00333;
-  if (!needSpawn) {
-    return;
-  }
-  executeMinecraftCommand(ws, buildTitleRawCommand(`§c§lTNT FEVER`));
-  executeMinecraftCommand(ws, buildSubTitleRawCommand(`by ${mobNameTag}`));
-  executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.levelup));
-  const commands = buildTNTRainSpawnCommandsAtPlayer();
-  for await (const command of commands) {
+  for await (const _ of Array.from({ length: likeCount }, () => "")) {
     await new Promise((resolve) => setTimeout(resolve, 100));
-    executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.click));
-    executeMinecraftCommand(ws, command);
-  }
-};
-
-const spawnChargedCreeperIfNeeded = async (
-  ws: WebSocket,
-  mobNameTag: string
-) => {
-  // 0.03%の確率で帯電クリーパーをN体発生させる
-  const needExecuteCommand = Math.random() < 0.0003;
-  if (!needExecuteCommand) {
-    return;
-  }
-  executeMinecraftCommand(
-    ws,
-    buildTitleRawCommand(`§e§o§l帯電クリーパータイム`)
-  );
-  executeMinecraftCommand(ws, buildSubTitleRawCommand(`by ${mobNameTag}`));
-  executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.raid_horn));
-  const spawnCount = 10;
-  const arr = Array.from({ length: spawnCount }, () => "");
-  for await (const empty of arr) {
-    await new Promise((resolve) => setTimeout(resolve, 50));
-    executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.click));
-    executeMinecraftCommand(
-      ws,
-      buildMobSpawnWithEventCommandAtPlayer(
-        Mob.creeper,
-        MCSpawnEvent.become_charged,
-        mobNameTag
-      )
-    );
-  }
-};
-
-const giveElytraIfNeeded = async (ws: WebSocket, mobNameTag: string) => {
-  // 0.03%の確率でエリトラを付与
-  const needExecuteCommand = Math.random() < 0.0003;
-  if (!needExecuteCommand) {
-    return;
-  }
-  executeMinecraftCommand(
-    ws,
-    buildTitleRawCommand(`§e§o§lハイパーエリトラタイム`)
-  );
-  executeMinecraftCommand(ws, buildSubTitleRawCommand(`by ${mobNameTag}`));
-  executeMinecraftCommand(
-    ws,
-    buildSayCommand(`${sanitizeNameTagText(mobNameTag)}がエリトラを与えた`)
-  );
-  executeMinecraftCommand(ws, buildPlaysoundCommand(MCSound.raid_horn));
-  executeMinecraftCommand(ws, buildGiveCommandAtPlayer(MCItem.elytra, 1));
-};
-
-const spawnZombieAtPlayer = async (
-  ws: WebSocket,
-  mobNameTag: string,
-  count: number
-) => {
-  const emptyArray = Array.from({ length: count }, () => "");
-  for await (const empty of emptyArray) {
-    await new Promise((resolve) => setTimeout(resolve, 200));
-    executeMinecraftCommand(
-      ws,
-      buildMobSpawnCommandAtPlayer(Mob.zombie, mobNameTag)
-    );
-  }
-};
-
-const spawnVindicator = async (ws: WebSocket, count: number) => {
-  const emptyArray = Array.from({ length: count }, () => "");
-  for await (const empty of emptyArray) {
-    await new Promise((resolve) => setTimeout(resolve, 200));
-    executeMinecraftCommand(
-      ws,
-      buildMobSpawnCommand(Mob.vindicator, { x: 0, y: 0, z: 0 })
-    );
+    config.trigger.like.forEach((like) => {
+      if (Math.random() >= like.rate) {
+        return;
+      }
+      like.commands.forEach(async (command) => {
+        switch (command.type) {
+          case "once": {
+            for await (const e of command.commands) {
+              await new Promise((resolve) => {
+                if (command.interval_seconds) {
+                  return setTimeout(resolve, command.interval_seconds * 1000);
+                }
+              });
+              executeMinecraftCommand(
+                ws,
+                replaceCommand(e, { nickname, count: likeCount })
+              );
+            }
+          }
+          case "throttle": {
+            for await (const e of command.commands) {
+              await new Promise((resolve) => {
+                if (command.interval_seconds) {
+                  return setTimeout(resolve, command.interval_seconds * 1000);
+                }
+              });
+              CommandExecutor.instance.throttleSubject.next(
+                replaceCommand(e, { nickname, count: likeCount })
+              );
+            }
+          }
+        }
+      });
+    });
   }
 };

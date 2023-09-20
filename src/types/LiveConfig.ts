@@ -11,7 +11,7 @@ export const liveConfigSchema = z.object({
         commands: z.array(
           z.object({
             type: z.string(),
-            interval_seconds: z.number(),
+            interval_seconds: z.number().optional(),
             commands: z.array(z.string()),
           })
         ),

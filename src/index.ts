@@ -10,7 +10,7 @@ import { handleStreamEnd } from "./handler/handleStreamEnd";
 import { handleReceiveMinecraftMessage } from "./handler/handleReceiveMinecraftMessage";
 import { connect } from "http2";
 import { subscribeMinecraftEvents } from "./handler/subscribeMinecraftEvent";
-import { SpawnMobManager } from "./manager/SpawnMobManager";
+import { CommandExecutor } from "./manager/CommandExecutor";
 import { executeMinecraftCommand } from "./helpers/postMinecraftCommand";
 import { buildHiddenCommandLogCommand } from "./helpers/buildHiddenCommandLogCommand";
 import { fetchLiveConfig } from "./helpers/fetchLiveConfig";
@@ -32,7 +32,7 @@ wss.on("connection", async (ws, req) => {
   console.log("Connected Minecraft");
   executeMinecraftCommand(ws, buildHiddenCommandLogCommand());
   currentWebSocket = ws;
-  SpawnMobManager.instance.setCurrentWebSocket(ws);
+  CommandExecutor.instance.setCurrentWebSocket(ws);
 
   const tiktokLiveConnection = new WebcastPushConnection(
     connectToTikTokUserName
@@ -51,15 +51,15 @@ wss.on("connection", async (ws, req) => {
   });
 
   tiktokLiveConnection.on("chat", (data) => {
-    handleReceiveChat(currentWebSocket, data);
+    handleReceiveChat(currentWebSocket, data, config);
   });
 
   tiktokLiveConnection.on("gift", (data) => {
-    handleReceiveGift(currentWebSocket, data);
+    handleReceiveGift(currentWebSocket, data, config);
   });
 
   tiktokLiveConnection.on("like", (data) => {
-    handleReceiveLike(currentWebSocket, data);
+    handleReceiveLike(currentWebSocket, data, config);
   });
 
   tiktokLiveConnection.on("follow", (data) => {

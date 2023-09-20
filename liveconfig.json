@@ -6,10 +6,10 @@
         "rate": 1,
         "commands": [
           {
-            "type": "repeat",
-            "interval_seconds": 0.1,
+            "type": "once",
+            "interval_seconds": 0.01,
             "commands": [
-              "summon creeper ~ ~3 ~ minecraft:start_exploding_forced $nickname"
+              "summon creeper ~ ~3 ~ minecraft:start_exploding_forced \"$nickname\""
             ]
           }
         ]
@@ -67,6 +67,7 @@
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
+              "say $nicknameがハイパーエリトラタイムを発動",
               "give elytra @a 1",
               "playsound raid.horn @a",
               "titleraw @a title {\"rawtext\":[{\"text\":\"§e§o§lハイパーエリトラタイム\"}]}",
@@ -82,8 +83,9 @@
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
+              "say $nicknameが帯電クリーパー軍団を召喚",
               "playsound raid.horn @a",
-              "titleraw @a title {\"rawtext\":[{\"text\":\"§e§o§l帯電クリーパータイム\"}]}",
+              "titleraw @a title {\"rawtext\":[{\"text\":\"§e§o§l帯電クリーパー召喚\"}]}",
               "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
             ]
           },
@@ -91,11 +93,11 @@
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
-              "summon creeper ~ ~3 ~ minecraft:become_charged $nickname",
-              "summon creeper ~ ~3 ~ minecraft:become_charged $nickname",
-              "summon creeper ~ ~3 ~ minecraft:become_charged $nickname",
-              "summon creeper ~ ~3 ~ minecraft:become_charged $nickname",
-              "summon creeper ~ ~3 ~ minecraft:become_charged $nickname"
+              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\""
             ]
           }
         ]
@@ -262,8 +264,10 @@
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
+              "playsound random.levelup @a",
               "titleraw @a title {\"rawtext\":[{\"text\":\"§c§lTNT Rain\"}]}",
-              "titleraw @a subtitle {\"rawtext\":[{\"text\":\"$nicknameがフォローした!\"}]}"
+              "titleraw @a subtitle {\"rawtext\":[{\"text\":\"$nicknameがフォローした!\"}]}",
+              "say $nicknameがTNT Rainを発動"
             ]
           },
           {
@@ -308,8 +312,10 @@
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
+              "playsound random.levelup @a",
               "titleraw @a title {\"rawtext\":[{\"text\":\"§c§lTNT Rain\"}]}",
-              "titleraw @a subtitle {\"rawtext\":[{\"text\":\"$nicknameがシェアした!\"}]}"
+              "titleraw @a subtitle {\"rawtext\":[{\"text\":\"$nicknameがシェアした!\"}]}",
+              "say $nicknameがTNT Rainを発動"
             ]
           },
           {

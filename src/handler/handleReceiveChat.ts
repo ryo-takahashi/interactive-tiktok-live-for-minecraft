@@ -5,13 +5,15 @@ import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtP
 import { buildSayCommand } from "../helpers/buildSayCommand";
 import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
 import { sanitizeNameTagText } from "../helpers/sanitizeNameTagText";
+import { LiveConfig } from "../types/LiveConfig";
 import { MCItem } from "../types/MCItem";
 import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
 
 export const handleReceiveChat = async (
   ws: WebSocket | undefined,
-  data: any
+  data: any,
+  config: LiveConfig
 ) => {
   const { comment, nickname, uniqueId } = data;
   if (!ws) {

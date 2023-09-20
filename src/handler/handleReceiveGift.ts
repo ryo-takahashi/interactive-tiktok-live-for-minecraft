@@ -4,10 +4,12 @@ import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
 import { TikTokGift } from "../types/TikTokGift";
 import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
+import { LiveConfig } from "../types/LiveConfig";
 
 export const handleReceiveGift = async (
   ws: WebSocket | undefined,
-  data: any
+  data: any,
+  config: LiveConfig
 ) => {
   const { nickname, uniqueId, giftId } = data;
   if (!ws) {
