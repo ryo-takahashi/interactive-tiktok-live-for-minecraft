@@ -23,7 +23,7 @@
             "commands": [
               "say $nicknameがTNT FEVERを発動",
               "playsound random.levelup @a",
-              "titleraw @a title {\"rawtext\":[{\"text\":\"§e§o§lTNT FEVER\"}]}",
+              "titleraw @a title {\"rawtext\":[{\"text\":\"§c§lTNT FEVER\"}]}",
               "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
             ]
           },
@@ -68,7 +68,7 @@
             "interval_seconds": 0.01,
             "commands": [
               "say $nicknameがハイパーエリトラタイムを発動",
-              "give elytra @a 1",
+              "give @a elytra 1",
               "playsound raid.horn @a",
               "titleraw @a title {\"rawtext\":[{\"text\":\"§e§o§lハイパーエリトラタイム\"}]}",
               "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
@@ -109,12 +109,12 @@
         "rate": 1,
         "commands": [
           {
-            "type": "summon",
+            "type": "once",
             "interval_seconds": 0.01,
             "commands": ["say $nicknameがTNTを$count召喚した!"]
           },
           {
-            "type": "repeat",
+            "type": "summon",
             "interval_seconds": 0.1,
             "commands": ["playsound random.click @a", "summon tnt ~ ~3 ~"]
           }
@@ -130,7 +130,7 @@
             "commands": [
               "playsound random.orb @a",
               "say $nicknameがダイヤモンドを$count個与えた",
-              "give diamond @a $count"
+              "give @a diamond $count"
             ]
           }
         ]
@@ -220,7 +220,7 @@
             "commands": [
               "playsound random.orb @a",
               "say $nicknameが黒曜石を$count個与えた",
-              "give obsidian @a $count"
+              "give @a obsidian $count"
             ]
           }
         ]
@@ -235,7 +235,7 @@
             "commands": [
               "playsound random.orb @a",
               "say $nicknameが金のリンゴを$count個与えた",
-              "give golden_apple @a $count"
+              "give @a golden_apple $count"
             ]
           }
         ]
@@ -250,7 +250,7 @@
             "commands": [
               "playsound random.orb @a",
               "say $nicknameがエンダーアイを$count個与えた",
-              "give ender_eye @a $count"
+              "give @a ender_eye $count"
             ]
           }
         ]

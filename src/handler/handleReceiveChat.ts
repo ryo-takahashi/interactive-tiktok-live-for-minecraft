@@ -29,6 +29,7 @@ export const handleReceiveChat = async (
         chat.commands.forEach(async (command) => {
           switch (command.type) {
             case "give":
+            case "once":
               {
                 for await (const e of command.commands) {
                   await new Promise((resolve) => {
