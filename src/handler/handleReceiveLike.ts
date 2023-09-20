@@ -29,7 +29,7 @@ export const handleReceiveLike = async (
 ) => {
   const { likeCount, nickname, uniqueId, totalLikeCount } = data;
   console.log(
-    `${nickname}@${uniqueId}): likeCount = ${likeCount}, totalLikeCount = ${totalLikeCount}`
+    `${nickname}@${uniqueId}: likeCount = ${likeCount}, totalLikeCount = ${totalLikeCount}`
   );
   if (ws === undefined) {
     return;
@@ -42,31 +42,35 @@ export const handleReceiveLike = async (
       }
       like.commands.forEach(async (command) => {
         switch (command.type) {
-          case "once": {
-            for await (const e of command.commands) {
-              await new Promise((resolve) => {
-                if (command.interval_seconds) {
-                  return setTimeout(resolve, command.interval_seconds * 1000);
-                }
-              });
-              executeMinecraftCommand(
-                ws,
-                replaceCommand(e, { nickname, count: likeCount })
-              );
+          case "once":
+            {
+              for await (const e of command.commands) {
+                await new Promise((resolve) => {
+                  if (command.interval_seconds) {
+                    return setTimeout(resolve, command.interval_seconds * 1000);
+                  }
+                });
+                executeMinecraftCommand(
+                  ws,
+                  replaceCommand(e, { nickname, count: likeCount })
+                );
+              }
             }
-          }
-          case "throttle": {
-            for await (const e of command.commands) {
-              await new Promise((resolve) => {
-                if (command.interval_seconds) {
-                  return setTimeout(resolve, command.interval_seconds * 1000);
-                }
-              });
-              CommandExecutor.instance.throttleSubject.next(
-                replaceCommand(e, { nickname, count: likeCount })
-              );
+            break;
+          case "throttle":
+            {
+              for await (const e of command.commands) {
+                await new Promise((resolve) => {
+                  if (command.interval_seconds) {
+                    return setTimeout(resolve, command.interval_seconds * 1000);
+                  }
+                });
+                CommandExecutor.instance.throttleSubject.next(
+                  replaceCommand(e, { nickname, count: likeCount })
+                );
+              }
             }
-          }
+            break;
         }
       });
     });

@@ -109,7 +109,7 @@
         "rate": 1,
         "commands": [
           {
-            "type": "once",
+            "type": "summon",
             "interval_seconds": 0.01,
             "commands": ["say $nicknameがTNTを$count召喚した!"]
           },
@@ -125,7 +125,7 @@
         "rate": 1,
         "commands": [
           {
-            "type": "once",
+            "type": "give",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
@@ -140,7 +140,7 @@
         "rate": 1,
         "commands": [
           {
-            "type": "once",
+            "type": "effect",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
@@ -155,7 +155,7 @@
         "rate": 1,
         "commands": [
           {
-            "type": "once",
+            "type": "effect",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
@@ -170,7 +170,7 @@
         "rate": 1,
         "commands": [
           {
-            "type": "once",
+            "type": "effect",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
@@ -185,7 +185,7 @@
         "rate": 1,
         "commands": [
           {
-            "type": "once",
+            "type": "effect",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
@@ -200,7 +200,7 @@
         "rate": 1,
         "commands": [
           {
-            "type": "once",
+            "type": "effect",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
@@ -215,7 +215,7 @@
         "rate": 1,
         "commands": [
           {
-            "type": "once",
+            "type": "give",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
@@ -230,7 +230,7 @@
         "rate": 1,
         "commands": [
           {
-            "type": "once",
+            "type": "give",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
@@ -245,7 +245,7 @@
         "rate": 1,
         "commands": [
           {
-            "type": "once",
+            "type": "give",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",

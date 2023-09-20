@@ -1,13 +1,6 @@
-import { spawnEntityByComment } from "../commands/spawnEntityByComment";
-import { buildGiveCommandAtPlayer } from "../helpers/buildGiveCommandAtPlayer";
-import { buildMobSpawnCommand } from "../helpers/buildMobSpawnCommand";
-import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
-import { buildSayCommand } from "../helpers/buildSayCommand";
 import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
-import { sanitizeNameTagText } from "../helpers/sanitizeNameTagText";
+import { replaceCommand } from "../helpers/replaceCommand";
 import { LiveConfig } from "../types/LiveConfig";
-import { MCItem } from "../types/MCItem";
-import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
 
 export const handleReceiveChat = async (
@@ -19,12 +12,65 @@ export const handleReceiveChat = async (
   if (!ws) {
     return;
   }
-  spawnEntityByComment(ws, nickname, comment);
-};
-
-const spawnCreeper = async (ws: WebSocket, mobNameTag: string) => {
-  executeMinecraftCommand(
-    ws,
-    buildMobSpawnCommandAtPlayer(Mob.creeper, mobNameTag)
-  );
+  const triggerTexts = config.trigger.chat.map((chat) => chat.chat);
+  for await (const triggerText of triggerTexts) {
+    // chatTextからtriggerTextが一致した回数を取得
+    const matchCount = comment.split(triggerText).length - 1;
+    if (matchCount === 0) {
+      continue;
+    }
+    // 一致した回数分コマンドを実行
+    config.trigger.chat
+      .filter((chat) => chat.chat === triggerText)
+      .forEach((chat) => {
+        if (Math.random() >= chat.rate) {
+          return;
+        }
+        chat.commands.forEach(async (command) => {
+          switch (command.type) {
+            case "give":
+              {
+                for await (const e of command.commands) {
+                  await new Promise((resolve) => {
+                    setTimeout(resolve, command.interval_seconds * 1000);
+                  });
+                  executeMinecraftCommand(
+                    ws,
+                    replaceCommand(e, { nickname, count: matchCount })
+                  );
+                }
+              }
+              break;
+            case "effect":
+              {
+                for await (const e of command.commands) {
+                  await new Promise((resolve) => {
+                    setTimeout(resolve, command.interval_seconds * 1000);
+                  });
+                  executeMinecraftCommand(
+                    ws,
+                    replaceCommand(e, { nickname, count: matchCount * 10 })
+                  );
+                }
+              }
+              break;
+            case "summon":
+              {
+                for await (const _ of Array.from({ length: matchCount })) {
+                  for await (const e of command.commands) {
+                    await new Promise((resolve) => {
+                      setTimeout(resolve, command.interval_seconds * 1000);
+                    });
+                    executeMinecraftCommand(
+                      ws,
+                      replaceCommand(e, { nickname, count: matchCount })
+                    );
+                  }
+                }
+              }
+              break;
+          }
+        });
+      });
+  }
 };
