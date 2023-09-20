@@ -1,6 +1,7 @@
 import { buildMobSpawnCommand } from "../helpers/buildMobSpawnCommand";
 import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
 import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
+import { replaceCommand } from "../helpers/replaceCommand";
 import { sanitizeNameTagText } from "../helpers/sanitizeNameTagText";
 import { LiveConfig } from "../types/LiveConfig";
 import { Mob } from "../types/Mob";
@@ -24,8 +25,7 @@ export const handleReceiveJoinLiveMember = async (
         await new Promise((resolve) =>
           setTimeout(resolve, command.interval_seconds * 1000)
         );
-        const replacedCommand = e.replace("$nickname", nickname);
-        executeMinecraftCommand(ws, replacedCommand);
+        executeMinecraftCommand(ws, replaceCommand(e, { nickname }));
       }
     });
   });
