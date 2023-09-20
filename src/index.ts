@@ -63,11 +63,11 @@ wss.on("connection", async (ws, req) => {
   });
 
   tiktokLiveConnection.on("follow", (data) => {
-    handleReceiveFollow(currentWebSocket, data);
+    handleReceiveFollow(currentWebSocket, data, config);
   });
 
   tiktokLiveConnection.on("share", (data) => {
-    handleReceiveShare(currentWebSocket, data);
+    handleReceiveShare(currentWebSocket, data, config);
   });
 
   tiktokLiveConnection.on("streamEnd", (actionId) => {
