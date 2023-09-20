@@ -354,7 +354,7 @@
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
-              "say $nickname joined the game",
+              "say §e$nickname joined the game",
               "summon villager $nickname ~ ~3 ~"
             ]
           }

@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 // https://transform.tools/json-to-zod
+export type LiveConfig = z.infer<typeof liveConfigSchema>;
 export const liveConfigSchema = z.object({
   random_respawn: z.boolean(),
   trigger: z.object({

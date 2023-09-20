@@ -13,11 +13,12 @@ import { subscribeMinecraftEvents } from "./handler/subscribeMinecraftEvent";
 import { SpawnMobManager } from "./manager/SpawnMobManager";
 import { executeMinecraftCommand } from "./helpers/postMinecraftCommand";
 import { buildHiddenCommandLogCommand } from "./helpers/buildHiddenCommandLogCommand";
+import { fetchLiveConfig } from "./helpers/fetchLiveConfig";
 
 const wss = new WebSocketServer({ port: 8080 });
 var currentWebSocket: WebSocket | undefined = undefined;
 var currentTiktokLiveConnection: WebcastPushConnection | undefined = undefined;
-
+const config = fetchLiveConfig();
 wss.on("connection", async (ws, req) => {
   if (!req.url) {
     console.error("Failed Connect Minecraft: No TikTok username provided");
@@ -46,7 +47,7 @@ wss.on("connection", async (ws, req) => {
     });
 
   tiktokLiveConnection.on("member", (data) => {
-    handleReceiveJoinLiveMember(currentWebSocket, data);
+    handleReceiveJoinLiveMember(currentWebSocket, data, config);
   });
 
   tiktokLiveConnection.on("chat", (data) => {
