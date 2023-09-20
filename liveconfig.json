@@ -1,5 +1,4 @@
 {
-  "version": 1,
   "random_respawn": true,
   "trigger": {
     "like": [
@@ -258,7 +257,6 @@
     "follow": [
       {
         "rate": 1,
-        "interval_seconds": 0.1,
         "commands": [
           {
             "type": "once",
@@ -305,7 +303,6 @@
     "share": [
       {
         "rate": 1,
-        "interval_seconds": 0.1,
         "commands": [
           {
             "type": "once",
@@ -352,7 +349,6 @@
     "member": [
       {
         "rate": 1,
-        "interval_seconds": 0.1,
         "commands": [
           {
             "type": "once",
