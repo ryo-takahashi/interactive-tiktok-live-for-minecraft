@@ -2,6 +2,14 @@
 
 - TikTok のライブ配信内のイベントを元に Minecraft へコマンドを送信するツール
 - PC(Windows) にてツールを起動し、Minecraft 側からツールに接続します。
+- [いますぐツールを使ってみたい方はこちら (クイックスタート)](QuickStart.md)
+
+# Todo
+
+- [x] customized from liveconfig.json file
+- [ ] testable
+- [ ] error handling
+- [ ] fetch remote liveconfig.json file
 
 # Requirements
 
@@ -14,7 +22,6 @@
 # Setup
 
 ```shell
-# Powershellを管理者権限で起動し、以下のコマンドを入力
 # ※Minecraftがこのツールにアクセスするために必要
 CheckNetIsolation.exe LoopbackExempt -a -n="Microsoft.MinecraftUWP_8wekyb3d8bbwe"
 
@@ -29,7 +36,6 @@ npm install
 # Usage
 
 ```shell
-# Powershell等で以下のコマンドを入力
 npm run start
 ```
 
@@ -37,11 +43,6 @@ npm run start
 # Minecraftで以下のコマンドを入力
 # ライブ配信が始まっていない場合はエラーが出ます
 /connect {PCのIPアドレス}:8080/{TikTokのライブ配信のID}
-
-# 例1 Windows版Minecraftの場合
-/connect localhost:8080/taberukun
-# 例2 Switch版Minecraftの場合で、PCのIPアドレスが192.168.11.6の場合
-/connect 192.168.11.6:8080/taberukun
 ```
 
 # Customize
@@ -65,18 +66,9 @@ npm run start
     - 5: 移動速度上昇効果の付与
     - 6: コンジットパワーの付与
     - 7: 暗視効果の付与
-    - 8: 黒曜石の付与
+    - 8: ネザライトインゴット、鍛冶台、鍛冶テンプレートの付与
     - 9: 金のりんごの付与
     - 0: エンダーアイの付与
-
-# Roadmap
-
-- α 版
-  - プログラム上でのみ動作変更が可能
-- β 版
-  - 設定ファイルから動作変更が可能
-- 正式版
-  - TBW
 
 # Resources
 
