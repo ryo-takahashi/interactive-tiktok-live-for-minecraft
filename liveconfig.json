@@ -21,7 +21,7 @@
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
-              "say $nicknameがTNT FEVERを発動",
+              "say §c$nicknameがTNT FEVERを発動",
               "playsound random.levelup @a",
               "titleraw @a title {\"rawtext\":[{\"text\":\"§c§lTNT FEVER\"}]}",
               "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
@@ -57,6 +57,17 @@
               "summon tnt ~1 ~3 ~2",
               "summon tnt ~2 ~3 ~2"
             ]
+          },
+          {
+            "type": "once",
+            "interval_seconds": 0.1,
+            "commands": [
+              "playsound random.click @a",
+              "playsound random.click @a",
+              "playsound random.click @a",
+              "playsound random.click @a",
+              "playsound random.click @a"
+            ]
           }
         ]
       },
@@ -67,10 +78,10 @@
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
-              "say $nicknameがハイパーエリトラタイムを発動",
+              "say §a$nicknameがハイパーエリトラタイムを発動",
               "give @a elytra 1",
               "playsound raid.horn @a",
-              "titleraw @a title {\"rawtext\":[{\"text\":\"§e§o§lハイパーエリトラタイム\"}]}",
+              "titleraw @a title {\"rawtext\":[{\"text\":\"§a§o§lハイパーエリトラタイム\"}]}",
               "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
             ]
           }
@@ -83,21 +94,38 @@
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
-              "say $nicknameが帯電クリーパー軍団を召喚",
+              "say §c$nicknameが帯電クリーパー軍団を召喚",
               "playsound raid.horn @a",
-              "titleraw @a title {\"rawtext\":[{\"text\":\"§e§o§l帯電クリーパー召喚\"}]}",
+              "titleraw @a title {\"rawtext\":[{\"text\":\"§c§o§l帯電クリーパー召喚\"}]}",
               "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
             ]
           },
           {
             "type": "once",
-            "interval_seconds": 0.01,
+            "interval_seconds": 0.1,
             "commands": [
               "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
               "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
               "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
               "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
               "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\""
+            ]
+          },
+
+          {
+            "type": "once",
+            "interval_seconds": 0.1,
+            "commands": [
+              "playsound random.click @a",
+              "playsound random.click @a",
+              "playsound random.click @a",
+              "playsound random.click @a",
+              "playsound random.click @a"
             ]
           }
         ]
@@ -111,7 +139,7 @@
           {
             "type": "once",
             "interval_seconds": 0.01,
-            "commands": ["say $nicknameがTNTを$count召喚した!"]
+            "commands": ["say §c$nicknameがTNTを$count召喚した!"]
           },
           {
             "type": "summon",
@@ -129,7 +157,7 @@
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
-              "say $nicknameがダイヤモンドを$count個与えた",
+              "say §a$nicknameがダイヤモンドを$count個与えた",
               "give @a diamond $count"
             ]
           }
@@ -144,7 +172,7 @@
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
-              "say $nicknameが採掘速度上昇効果を$count秒間与えた",
+              "say §a$nicknameが採掘速度上昇効果を$count秒間与えた",
               "effect @a haste $count 2"
             ]
           }
@@ -159,7 +187,7 @@
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
-              "say $nicknameがダメージ耐性効果を$count秒間与えた",
+              "say §a$nicknameがダメージ耐性効果を$count秒間与えた",
               "effect @a resistance $count 2"
             ]
           }
@@ -174,7 +202,7 @@
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
-              "say $nicknameが移動速度上昇効果を$count秒間与えた",
+              "say §a$nicknameが移動速度上昇効果を$count秒間与えた",
               "effect @a speed $count 5"
             ]
           }
@@ -189,7 +217,7 @@
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
-              "say $nicknameがコンジットパワーを$count秒間与えた",
+              "say §a$nicknameがコンジットパワーを$count秒間与えた",
               "effect @a conduit_power $count 1"
             ]
           }
@@ -204,7 +232,7 @@
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
-              "say $nicknameが暗視効果を$count秒間与えた",
+              "say §a$nicknameが暗視効果を$count秒間与えた",
               "effect @a night_vision $count 5"
             ]
           }
@@ -219,7 +247,7 @@
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
-              "say $nicknameが黒曜石を$count個与えた",
+              "say §a$nicknameが黒曜石を$count個与えた",
               "give @a obsidian $count"
             ]
           }
@@ -249,7 +277,7 @@
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
-              "say $nicknameがエンダーアイを$count個与えた",
+              "say §a$nicknameがエンダーアイを$count個与えた",
               "give @a ender_eye $count"
             ]
           }
@@ -267,7 +295,7 @@
               "playsound random.levelup @a",
               "titleraw @a title {\"rawtext\":[{\"text\":\"§c§lTNT Rain\"}]}",
               "titleraw @a subtitle {\"rawtext\":[{\"text\":\"$nicknameがフォローした!\"}]}",
-              "say $nicknameがTNT Rainを発動"
+              "say §c$nicknameがTNT Rainを発動"
             ]
           },
           {
@@ -299,6 +327,17 @@
               "summon tnt ~ ~3 ~2",
               "summon tnt ~1 ~3 ~2",
               "summon tnt ~2 ~3 ~2"
+            ]
+          },
+          {
+            "type": "once",
+            "interval_seconds": 0.1,
+            "commands": [
+              "playsound random.click @a",
+              "playsound random.click @a",
+              "playsound random.click @a",
+              "playsound random.click @a",
+              "playsound random.click @a"
             ]
           }
         ]
@@ -315,7 +354,7 @@
               "playsound random.levelup @a",
               "titleraw @a title {\"rawtext\":[{\"text\":\"§c§lTNT Rain\"}]}",
               "titleraw @a subtitle {\"rawtext\":[{\"text\":\"$nicknameがシェアした!\"}]}",
-              "say $nicknameがTNT Rainを発動"
+              "say §c$nicknameがTNT Rainを発動"
             ]
           },
           {
@@ -348,6 +387,17 @@
               "summon tnt ~1 ~3 ~2",
               "summon tnt ~2 ~3 ~2"
             ]
+          },
+          {
+            "type": "once",
+            "interval_seconds": 0.1,
+            "commands": [
+              "playsound random.click @a",
+              "playsound random.click @a",
+              "playsound random.click @a",
+              "playsound random.click @a",
+              "playsound random.click @a"
+            ]
           }
         ]
       }
@@ -363,6 +413,65 @@
               "say §e$nickname joined the game",
               "summon villager \"$nickname\" ~ ~3 ~"
             ]
+          }
+        ]
+      }
+    ],
+    "gift": [
+      {
+        "gift_id": 5655,
+        "rate": 1,
+        "actions": [
+          {
+            "type": "repeat",
+            "interval_seconds": 0.01,
+            "commands": [
+              "playsound random.orb @a",
+              "summon zombie \"$nickname\" ~ ~3 ~"
+            ]
+          },
+          {
+            "type": "repeat_end",
+            "interval_seconds": 0.01,
+            "commands": ["say §d$nickname がRoseを$count個プレゼントした!"]
+          }
+        ]
+      },
+      {
+        "gift_id": 6064,
+        "rate": 1,
+        "actions": [
+          {
+            "type": "repeat",
+            "interval_seconds": 0.01,
+            "commands": [
+              "playsound random.orb @a",
+              "summon zombie \"$nickname\" ~ ~3 ~"
+            ]
+          },
+          {
+            "type": "repeat_end",
+            "interval_seconds": 0.01,
+            "commands": ["say §d$nickname がGGを$count個プレゼントした!"]
+          }
+        ]
+      },
+      {
+        "gift_id": 5269,
+        "rate": 1,
+        "actions": [
+          {
+            "type": "repeat",
+            "interval_seconds": 0.01,
+            "commands": [
+              "playsound random.orb @a",
+              "summon zombie \"$nickname\" ~ ~3 ~"
+            ]
+          },
+          {
+            "type": "repeat_end",
+            "interval_seconds": 0.01,
+            "commands": ["say §d$nickname がTikTokを$count個プレゼントした!"]
           }
         ]
       }

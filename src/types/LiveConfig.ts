@@ -66,5 +66,18 @@ export const liveConfigSchema = z.object({
         ),
       })
     ),
+    gift: z.array(
+      z.object({
+        gift_id: z.number(),
+        rate: z.number(),
+        actions: z.array(
+          z.object({
+            type: z.string(),
+            interval_seconds: z.number(),
+            commands: z.array(z.string()),
+          })
+        ),
+      })
+    ),
   }),
 });

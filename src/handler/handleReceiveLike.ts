@@ -6,7 +6,7 @@ import { WebSocket } from "ws";
 export const handleReceiveLike = async (data: any, config: LiveConfig) => {
   const { likeCount, nickname, uniqueId, totalLikeCount } = data;
   console.log(
-    `${nickname}@${uniqueId}: likeCount = ${likeCount}, totalLikeCount = ${totalLikeCount}`
+    `✋${nickname}@${uniqueId}: likeCount = ${likeCount}, totalLikeCount = ${totalLikeCount}`
   );
 
   for await (const _ of Array.from({ length: likeCount }, () => "")) {
