@@ -247,8 +247,10 @@
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
-              "say §a$nicknameが黒曜石を$count個与えた",
-              "give @a obsidian $count"
+              "say §a$nicknameがネザライトセットを$count個与えた",
+              "give @a netherite_ingot $count",
+              "give @a smithing_table $count",
+              "give @a netherite_upgrade_smithing_template $count"
             ]
           }
         ]
@@ -262,7 +264,7 @@
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
-              "say $nicknameが金のリンゴを$count個与えた",
+              "say §a$nicknameが金のリンゴを$count個与えた",
               "give @a golden_apple $count"
             ]
           }
