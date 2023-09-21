@@ -8,15 +8,14 @@ import { handleReceiveLike } from "./handler/handleReceiveLike";
 import { handleReceiveChat } from "./handler/handleReceiveChat";
 import { handleStreamEnd } from "./handler/handleStreamEnd";
 import { handleReceiveMinecraftMessage } from "./handler/handleReceiveMinecraftMessage";
-import { connect } from "http2";
 import { subscribeMinecraftEvents } from "./handler/subscribeMinecraftEvent";
-import { SpawnMobManager } from "./manager/SpawnMobManager";
-import { executeMinecraftCommand } from "./helpers/postMinecraftCommand";
+import { CommandExecutor } from "./manager/CommandExecutor";
 import { buildHiddenCommandLogCommand } from "./helpers/buildHiddenCommandLogCommand";
+import { fetchLiveConfig } from "./helpers/fetchLiveConfig";
 
 const wss = new WebSocketServer({ port: 8080 });
-var currentWebSocket: WebSocket | undefined = undefined;
 var currentTiktokLiveConnection: WebcastPushConnection | undefined = undefined;
+const config = fetchLiveConfig();
 
 wss.on("connection", async (ws, req) => {
   if (!req.url) {
@@ -29,9 +28,8 @@ wss.on("connection", async (ws, req) => {
     return;
   }
   console.log("Connected Minecraft");
-  executeMinecraftCommand(ws, buildHiddenCommandLogCommand());
-  currentWebSocket = ws;
-  SpawnMobManager.instance.setCurrentWebSocket(ws);
+  CommandExecutor.instance.setCurrentWebSocket(ws);
+  CommandExecutor.instance.execute(buildHiddenCommandLogCommand());
 
   const tiktokLiveConnection = new WebcastPushConnection(
     connectToTikTokUserName
@@ -46,42 +44,41 @@ wss.on("connection", async (ws, req) => {
     });
 
   tiktokLiveConnection.on("member", (data) => {
-    handleReceiveJoinLiveMember(currentWebSocket, data);
+    handleReceiveJoinLiveMember(data, config);
   });
 
   tiktokLiveConnection.on("chat", (data) => {
-    handleReceiveChat(currentWebSocket, data);
+    handleReceiveChat(data, config);
   });
 
   tiktokLiveConnection.on("gift", (data) => {
-    handleReceiveGift(currentWebSocket, data);
+    handleReceiveGift(data, config);
   });
 
   tiktokLiveConnection.on("like", (data) => {
-    handleReceiveLike(currentWebSocket, data);
+    handleReceiveLike(data, config);
   });
 
   tiktokLiveConnection.on("follow", (data) => {
-    handleReceiveFollow(currentWebSocket, data);
+    handleReceiveFollow(data, config);
   });
 
   tiktokLiveConnection.on("share", (data) => {
-    handleReceiveShare(currentWebSocket, data);
+    handleReceiveShare(data, config);
   });
 
   tiktokLiveConnection.on("streamEnd", (actionId) => {
     handleStreamEnd(actionId);
   });
 
-  await subscribeMinecraftEvents(currentWebSocket);
+  await subscribeMinecraftEvents(ws);
   ws.on("message", async (rawData) => {
-    handleReceiveMinecraftMessage(currentWebSocket, rawData);
+    handleReceiveMinecraftMessage(rawData);
   });
 });
 
 wss.on("close", () => {
   console.log("Disconnected Minecraft");
-  currentWebSocket = undefined;
   currentTiktokLiveConnection?.disconnect();
   currentTiktokLiveConnection = undefined;
 });

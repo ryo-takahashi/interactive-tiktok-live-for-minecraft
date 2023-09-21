@@ -1,44 +1,70 @@
-export interface LiveConfig {
-  random_respawn: boolean;
-  trigger: Trigger;
-}
+import { z } from "zod";
 
-export interface Trigger {
-  like: Follow[];
-  chat: Chat[];
-  follow: Follow[];
-  share: Share[];
-  member: Member[];
-}
-
-export interface Chat {
-  chat: string;
-  rate: number;
-  commands: Command[];
-}
-
-export interface Command {
-  type: CommandType;
-  interval_seconds: number;
-  commands: string[];
-}
-
-export enum CommandType {
-  Once = "once",
-  Repeat = "repeat",
-}
-
-export interface Follow {
-  rate: number;
-  commands: Command[];
-}
-
-export interface Share {
-  rate: number;
-  commands: Command[];
-}
-
-export interface Member {
-  rate: number;
-  commands: Command[];
-}
+// https://transform.tools/json-to-zod
+export type LiveConfig = z.infer<typeof liveConfigSchema>;
+export const liveConfigSchema = z.object({
+  random_respawn: z.boolean(),
+  trigger: z.object({
+    like: z.array(
+      z.object({
+        rate: z.number(),
+        actions: z.array(
+          z.object({
+            type: z.string(),
+            interval_seconds: z.number(),
+            commands: z.array(z.string()),
+          })
+        ),
+      })
+    ),
+    chat: z.array(
+      z.object({
+        keyword: z.string(),
+        rate: z.number(),
+        actions: z.array(
+          z.object({
+            type: z.string(),
+            interval_seconds: z.number(),
+            commands: z.array(z.string()),
+          })
+        ),
+      })
+    ),
+    follow: z.array(
+      z.object({
+        rate: z.number(),
+        actions: z.array(
+          z.object({
+            type: z.string(),
+            interval_seconds: z.number(),
+            commands: z.array(z.string()),
+          })
+        ),
+      })
+    ),
+    share: z.array(
+      z.object({
+        rate: z.number(),
+        actions: z.array(
+          z.object({
+            type: z.string(),
+            interval_seconds: z.number(),
+            commands: z.array(z.string()),
+          })
+        ),
+      })
+    ),
+    member: z.array(
+      z.object({
+        rate: z.number(),
+        actions: z.array(
+          z.object({
+            type: z.string(),
+            interval_seconds: z.number(),
+            commands: z.array(z.string()),
+          })
+        ),
+      })
+    ),
+  }),
+});

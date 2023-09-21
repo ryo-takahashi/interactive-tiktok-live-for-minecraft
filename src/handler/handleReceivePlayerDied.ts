@@ -1,7 +1,11 @@
 import { buildSetRandomWorldSpawnCommand } from "../helpers/buildSetRandomWorldSpawnCommand";
-import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
-import { WebSocket } from "ws";
+import { fetchLiveConfig } from "../helpers/fetchLiveConfig";
 
-export const handleReceivePlayerDied = async (ws: WebSocket) => {
-  executeMinecraftCommand(ws, buildSetRandomWorldSpawnCommand());
+import { CommandExecutor } from "../manager/CommandExecutor";
+
+export const handleReceivePlayerDied = async () => {
+  const config = fetchLiveConfig();
+  if (config.random_respawn) {
+    CommandExecutor.instance.execute(buildSetRandomWorldSpawnCommand());
+  }
 };

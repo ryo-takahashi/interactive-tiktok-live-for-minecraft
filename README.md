@@ -30,7 +30,7 @@ npm install
 
 ```shell
 # Powershell等で以下のコマンドを入力
-npm run dev
+npm run start
 ```
 
 ```

@@ -4,26 +4,26 @@
     "like": [
       {
         "rate": 1,
-        "commands": [
+        "actions": [
           {
-            "type": "repeat",
-            "interval_seconds": 0.1,
+            "type": "once",
+            "interval_seconds": 0.01,
             "commands": [
-              "summon creeper ~ ~3 ~ minecraft:start_exploding_forced $nickname"
+              "summon creeper ~ ~3 ~ minecraft:start_exploding_forced \"$nickname\""
             ]
           }
         ]
       },
       {
         "rate": 0.00333,
-        "commands": [
+        "actions": [
           {
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
               "say $nicknameがTNT FEVERを発動",
               "playsound random.levelup @a",
-              "titleraw @a title {\"rawtext\":[{\"text\":\"§e§o§lTNT FEVER\"}]}",
+              "titleraw @a title {\"rawtext\":[{\"text\":\"§c§lTNT FEVER\"}]}",
               "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
             ]
           },
@@ -31,43 +31,44 @@
             "type": "once",
             "interval_seconds": 0.1,
             "commands": [
-              "summon tnt @a ~-2 ~3 ~-2",
-              "summon tnt @a ~-1 ~3 ~-2",
-              "summon tnt @a ~ ~3 ~-2",
-              "summon tnt @a ~1 ~3 ~-2",
-              "summon tnt @a ~2 ~3 ~-2",
-              "summon tnt @a ~-2 ~3 ~-1",
-              "summon tnt @a ~-1 ~3 ~-1",
-              "summon tnt @a ~ ~3 ~-1",
-              "summon tnt @a ~1 ~3 ~-1",
-              "summon tnt @a ~2 ~3 ~-1",
-              "summon tnt @a ~-2 ~3 ~",
-              "summon tnt @a ~-1 ~3 ~",
-              "summon tnt @a ~ ~3 ~",
-              "summon tnt @a ~1 ~3 ~",
-              "summon tnt @a ~2 ~3 ~",
-              "summon tnt @a ~-2 ~3 ~1",
-              "summon tnt @a ~-1 ~3 ~1",
-              "summon tnt @a ~ ~3 ~1",
-              "summon tnt @a ~1 ~3 ~1",
-              "summon tnt @a ~2 ~3 ~1",
-              "summon tnt @a ~-2 ~3 ~2",
-              "summon tnt @a ~-1 ~3 ~2",
-              "summon tnt @a ~ ~3 ~2",
-              "summon tnt @a ~1 ~3 ~2",
-              "summon tnt @a ~2 ~3 ~2"
+              "summon tnt ~-2 ~3 ~-2",
+              "summon tnt ~-1 ~3 ~-2",
+              "summon tnt ~ ~3 ~-2",
+              "summon tnt ~1 ~3 ~-2",
+              "summon tnt ~2 ~3 ~-2",
+              "summon tnt ~-2 ~3 ~-1",
+              "summon tnt ~-1 ~3 ~-1",
+              "summon tnt ~ ~3 ~-1",
+              "summon tnt ~1 ~3 ~-1",
+              "summon tnt ~2 ~3 ~-1",
+              "summon tnt ~-2 ~3 ~",
+              "summon tnt ~-1 ~3 ~",
+              "summon tnt ~ ~3 ~",
+              "summon tnt ~1 ~3 ~",
+              "summon tnt ~2 ~3 ~",
+              "summon tnt ~-2 ~3 ~1",
+              "summon tnt ~-1 ~3 ~1",
+              "summon tnt ~ ~3 ~1",
+              "summon tnt ~1 ~3 ~1",
+              "summon tnt ~2 ~3 ~1",
+              "summon tnt ~-2 ~3 ~2",
+              "summon tnt ~-1 ~3 ~2",
+              "summon tnt ~ ~3 ~2",
+              "summon tnt ~1 ~3 ~2",
+              "summon tnt ~2 ~3 ~2"
             ]
           }
         ]
       },
       {
         "rate": 0.0003,
-        "commands": [
+        "actions": [
           {
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
-              "give elytra @a 1",
+              "say $nicknameがハイパーエリトラタイムを発動",
+              "give @a elytra 1",
               "playsound raid.horn @a",
               "titleraw @a title {\"rawtext\":[{\"text\":\"§e§o§lハイパーエリトラタイム\"}]}",
               "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
@@ -77,13 +78,14 @@
       },
       {
         "rate": 0.0003,
-        "commands": [
+        "actions": [
           {
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
+              "say $nicknameが帯電クリーパー軍団を召喚",
               "playsound raid.horn @a",
-              "titleraw @a title {\"rawtext\":[{\"text\":\"§e§o§l帯電クリーパータイム\"}]}",
+              "titleraw @a title {\"rawtext\":[{\"text\":\"§e§o§l帯電クリーパー召喚\"}]}",
               "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
             ]
           },
@@ -91,11 +93,11 @@
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
-              "summon creeper ~ ~3 ~ minecraft:become_charged $nickname",
-              "summon creeper ~ ~3 ~ minecraft:become_charged $nickname",
-              "summon creeper ~ ~3 ~ minecraft:become_charged $nickname",
-              "summon creeper ~ ~3 ~ minecraft:become_charged $nickname",
-              "summon creeper ~ ~3 ~ minecraft:become_charged $nickname"
+              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\""
             ]
           }
         ]
@@ -103,42 +105,42 @@
     ],
     "chat": [
       {
-        "chat": "1",
+        "keyword": "1",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "once",
             "interval_seconds": 0.01,
             "commands": ["say $nicknameがTNTを$count召喚した!"]
           },
           {
-            "type": "repeat",
+            "type": "summon",
             "interval_seconds": 0.1,
-            "commands": ["playsound random.click @a", "summon tnt @a ~ ~ ~"]
+            "commands": ["playsound random.click @a", "summon tnt ~ ~3 ~"]
           }
         ]
       },
       {
-        "chat": "2",
+        "keyword": "2",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
-            "type": "once",
+            "type": "give",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
               "say $nicknameがダイヤモンドを$count個与えた",
-              "give diamond @a $count"
+              "give @a diamond $count"
             ]
           }
         ]
       },
       {
-        "chat": "3",
+        "keyword": "3",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
-            "type": "once",
+            "type": "effect",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
@@ -149,11 +151,11 @@
         ]
       },
       {
-        "chat": "4",
+        "keyword": "4",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
-            "type": "once",
+            "type": "effect",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
@@ -164,11 +166,11 @@
         ]
       },
       {
-        "chat": "5",
+        "keyword": "5",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
-            "type": "once",
+            "type": "effect",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
@@ -179,11 +181,11 @@
         ]
       },
       {
-        "chat": "6",
+        "keyword": "6",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
-            "type": "once",
+            "type": "effect",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
@@ -194,11 +196,11 @@
         ]
       },
       {
-        "chat": "7",
+        "keyword": "7",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
-            "type": "once",
+            "type": "effect",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
@@ -209,46 +211,46 @@
         ]
       },
       {
-        "chat": "8",
+        "keyword": "8",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
-            "type": "once",
+            "type": "give",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
               "say $nicknameが黒曜石を$count個与えた",
-              "give obsidian @a $count"
+              "give @a obsidian $count"
             ]
           }
         ]
       },
       {
-        "chat": "9",
+        "keyword": "9",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
-            "type": "once",
+            "type": "give",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
               "say $nicknameが金のリンゴを$count個与えた",
-              "give golden_apple @a $count"
+              "give @a golden_apple $count"
             ]
           }
         ]
       },
       {
-        "chat": "0",
+        "keyword": "0",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
-            "type": "once",
+            "type": "give",
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
               "say $nicknameがエンダーアイを$count個与えた",
-              "give ender_eye @a $count"
+              "give @a ender_eye $count"
             ]
           }
         ]
@@ -257,44 +259,46 @@
     "follow": [
       {
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
+              "playsound random.levelup @a",
               "titleraw @a title {\"rawtext\":[{\"text\":\"§c§lTNT Rain\"}]}",
-              "titleraw @a subtitle {\"rawtext\":[{\"text\":\"$nicknameがフォローした!\"}]}"
+              "titleraw @a subtitle {\"rawtext\":[{\"text\":\"$nicknameがフォローした!\"}]}",
+              "say $nicknameがTNT Rainを発動"
             ]
           },
           {
             "type": "once",
             "interval_seconds": 0.1,
             "commands": [
-              "summon tnt @a ~-2 ~3 ~-2",
-              "summon tnt @a ~-1 ~3 ~-2",
-              "summon tnt @a ~ ~3 ~-2",
-              "summon tnt @a ~1 ~3 ~-2",
-              "summon tnt @a ~2 ~3 ~-2",
-              "summon tnt @a ~-2 ~3 ~-1",
-              "summon tnt @a ~-1 ~3 ~-1",
-              "summon tnt @a ~ ~3 ~-1",
-              "summon tnt @a ~1 ~3 ~-1",
-              "summon tnt @a ~2 ~3 ~-1",
-              "summon tnt @a ~-2 ~3 ~",
-              "summon tnt @a ~-1 ~3 ~",
-              "summon tnt @a ~ ~3 ~",
-              "summon tnt @a ~1 ~3 ~",
-              "summon tnt @a ~2 ~3 ~",
-              "summon tnt @a ~-2 ~3 ~1",
-              "summon tnt @a ~-1 ~3 ~1",
-              "summon tnt @a ~ ~3 ~1",
-              "summon tnt @a ~1 ~3 ~1",
-              "summon tnt @a ~2 ~3 ~1",
-              "summon tnt @a ~-2 ~3 ~2",
-              "summon tnt @a ~-1 ~3 ~2",
-              "summon tnt @a ~ ~3 ~2",
-              "summon tnt @a ~1 ~3 ~2",
-              "summon tnt @a ~2 ~3 ~2"
+              "summon tnt ~-2 ~3 ~-2",
+              "summon tnt ~-1 ~3 ~-2",
+              "summon tnt ~ ~3 ~-2",
+              "summon tnt ~1 ~3 ~-2",
+              "summon tnt ~2 ~3 ~-2",
+              "summon tnt ~-2 ~3 ~-1",
+              "summon tnt ~-1 ~3 ~-1",
+              "summon tnt ~ ~3 ~-1",
+              "summon tnt ~1 ~3 ~-1",
+              "summon tnt ~2 ~3 ~-1",
+              "summon tnt ~-2 ~3 ~",
+              "summon tnt ~-1 ~3 ~",
+              "summon tnt ~ ~3 ~",
+              "summon tnt ~1 ~3 ~",
+              "summon tnt ~2 ~3 ~",
+              "summon tnt ~-2 ~3 ~1",
+              "summon tnt ~-1 ~3 ~1",
+              "summon tnt ~ ~3 ~1",
+              "summon tnt ~1 ~3 ~1",
+              "summon tnt ~2 ~3 ~1",
+              "summon tnt ~-2 ~3 ~2",
+              "summon tnt ~-1 ~3 ~2",
+              "summon tnt ~ ~3 ~2",
+              "summon tnt ~1 ~3 ~2",
+              "summon tnt ~2 ~3 ~2"
             ]
           }
         ]
@@ -303,44 +307,46 @@
     "share": [
       {
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
+              "playsound random.levelup @a",
               "titleraw @a title {\"rawtext\":[{\"text\":\"§c§lTNT Rain\"}]}",
-              "titleraw @a subtitle {\"rawtext\":[{\"text\":\"$nicknameがシェアした!\"}]}"
+              "titleraw @a subtitle {\"rawtext\":[{\"text\":\"$nicknameがシェアした!\"}]}",
+              "say $nicknameがTNT Rainを発動"
             ]
           },
           {
             "type": "once",
             "interval_seconds": 0.1,
             "commands": [
-              "summon tnt @a ~-2 ~3 ~-2",
-              "summon tnt @a ~-1 ~3 ~-2",
-              "summon tnt @a ~ ~3 ~-2",
-              "summon tnt @a ~1 ~3 ~-2",
-              "summon tnt @a ~2 ~3 ~-2",
-              "summon tnt @a ~-2 ~3 ~-1",
-              "summon tnt @a ~-1 ~3 ~-1",
-              "summon tnt @a ~ ~3 ~-1",
-              "summon tnt @a ~1 ~3 ~-1",
-              "summon tnt @a ~2 ~3 ~-1",
-              "summon tnt @a ~-2 ~3 ~",
-              "summon tnt @a ~-1 ~3 ~",
-              "summon tnt @a ~ ~3 ~",
-              "summon tnt @a ~1 ~3 ~",
-              "summon tnt @a ~2 ~3 ~",
-              "summon tnt @a ~-2 ~3 ~1",
-              "summon tnt @a ~-1 ~3 ~1",
-              "summon tnt @a ~ ~3 ~1",
-              "summon tnt @a ~1 ~3 ~1",
-              "summon tnt @a ~2 ~3 ~1",
-              "summon tnt @a ~-2 ~3 ~2",
-              "summon tnt @a ~-1 ~3 ~2",
-              "summon tnt @a ~ ~3 ~2",
-              "summon tnt @a ~1 ~3 ~2",
-              "summon tnt @a ~2 ~3 ~2"
+              "summon tnt ~-2 ~3 ~-2",
+              "summon tnt ~-1 ~3 ~-2",
+              "summon tnt ~ ~3 ~-2",
+              "summon tnt ~1 ~3 ~-2",
+              "summon tnt ~2 ~3 ~-2",
+              "summon tnt ~-2 ~3 ~-1",
+              "summon tnt ~-1 ~3 ~-1",
+              "summon tnt ~ ~3 ~-1",
+              "summon tnt ~1 ~3 ~-1",
+              "summon tnt ~2 ~3 ~-1",
+              "summon tnt ~-2 ~3 ~",
+              "summon tnt ~-1 ~3 ~",
+              "summon tnt ~ ~3 ~",
+              "summon tnt ~1 ~3 ~",
+              "summon tnt ~2 ~3 ~",
+              "summon tnt ~-2 ~3 ~1",
+              "summon tnt ~-1 ~3 ~1",
+              "summon tnt ~ ~3 ~1",
+              "summon tnt ~1 ~3 ~1",
+              "summon tnt ~2 ~3 ~1",
+              "summon tnt ~-2 ~3 ~2",
+              "summon tnt ~-1 ~3 ~2",
+              "summon tnt ~ ~3 ~2",
+              "summon tnt ~1 ~3 ~2",
+              "summon tnt ~2 ~3 ~2"
             ]
           }
         ]
@@ -349,13 +355,13 @@
     "member": [
       {
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
-              "say $nickname joined the game",
-              "summon villager $nickname ~ ~3 ~"
+              "say §e$nickname joined the game",
+              "summon villager \"$nickname\" ~ ~3 ~"
             ]
           }
         ]

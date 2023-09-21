@@ -1,47 +1,23 @@
-import { buildMobSpawnCommand } from "../helpers/buildMobSpawnCommand";
-import { buildMobSpawnCommandAtPlayer } from "../helpers/buildMobSpawnCommandAtPlayer";
-import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
-import { sanitizeNameTagText } from "../helpers/sanitizeNameTagText";
-import { Mob } from "../types/Mob";
-import { WebSocket } from "ws";
+import { replaceCommand } from "../helpers/replaceCommand";
+import { CommandExecutor } from "../manager/CommandExecutor";
+import { LiveConfig } from "../types/LiveConfig";
 
 export const handleReceiveJoinLiveMember = async (
-  ws: WebSocket | undefined,
-  data: any
+  data: any,
+  config: LiveConfig
 ) => {
-  const { nickname, uniqueId } = data;
-  if (ws === undefined) {
-    return;
-  }
-  executeMinecraftCommand(
-    ws,
-    `say §e${sanitizeNameTagText(nickname)} joined the game`
-  );
-  spawnVillagerAtPlayer(ws, 1, nickname);
-};
-
-const spawnVillager = async (ws: WebSocket, count: number) => {
-  const emptyArray = Array.from({ length: count }, () => "");
-  for await (const empty of emptyArray) {
-    await new Promise((resolve) => setTimeout(resolve, 200));
-    executeMinecraftCommand(
-      ws,
-      buildMobSpawnCommand(Mob.villager, { x: 0, y: 0, z: 0 })
-    );
-  }
-};
-
-const spawnVillagerAtPlayer = async (
-  ws: WebSocket,
-  count: number,
-  mobNameTag: string
-) => {
-  const emptyArray = Array.from({ length: count }, () => "");
-  for await (const empty of emptyArray) {
-    await new Promise((resolve) => setTimeout(resolve, 200));
-    executeMinecraftCommand(
-      ws,
-      buildMobSpawnCommandAtPlayer(Mob.villager, mobNameTag)
-    );
-  }
+  const { nickname } = data;
+  config.trigger.member.forEach((member) => {
+    if (Math.random() >= member.rate) {
+      return;
+    }
+    member.actions.forEach(async (action) => {
+      for await (const e of action.commands) {
+        await new Promise((resolve) =>
+          setTimeout(resolve, action.interval_seconds * 1000)
+        );
+        CommandExecutor.instance.execute(replaceCommand(e, { nickname }));
+      }
+    });
+  });
 };
