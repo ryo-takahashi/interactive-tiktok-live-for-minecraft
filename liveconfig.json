@@ -4,7 +4,7 @@
     "like": [
       {
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "once",
             "interval_seconds": 0.01,
@@ -16,7 +16,7 @@
       },
       {
         "rate": 0.00333,
-        "commands": [
+        "actions": [
           {
             "type": "once",
             "interval_seconds": 0.01,
@@ -62,7 +62,7 @@
       },
       {
         "rate": 0.0003,
-        "commands": [
+        "actions": [
           {
             "type": "once",
             "interval_seconds": 0.01,
@@ -78,7 +78,7 @@
       },
       {
         "rate": 0.0003,
-        "commands": [
+        "actions": [
           {
             "type": "once",
             "interval_seconds": 0.01,
@@ -105,9 +105,9 @@
     ],
     "chat": [
       {
-        "chat": "1",
+        "keyword": "1",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "once",
             "interval_seconds": 0.01,
@@ -121,9 +121,9 @@
         ]
       },
       {
-        "chat": "2",
+        "keyword": "2",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "give",
             "interval_seconds": 0.01,
@@ -136,9 +136,9 @@
         ]
       },
       {
-        "chat": "3",
+        "keyword": "3",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "effect",
             "interval_seconds": 0.01,
@@ -151,9 +151,9 @@
         ]
       },
       {
-        "chat": "4",
+        "keyword": "4",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "effect",
             "interval_seconds": 0.01,
@@ -166,9 +166,9 @@
         ]
       },
       {
-        "chat": "5",
+        "keyword": "5",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "effect",
             "interval_seconds": 0.01,
@@ -181,9 +181,9 @@
         ]
       },
       {
-        "chat": "6",
+        "keyword": "6",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "effect",
             "interval_seconds": 0.01,
@@ -196,9 +196,9 @@
         ]
       },
       {
-        "chat": "7",
+        "keyword": "7",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "effect",
             "interval_seconds": 0.01,
@@ -211,9 +211,9 @@
         ]
       },
       {
-        "chat": "8",
+        "keyword": "8",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "give",
             "interval_seconds": 0.01,
@@ -226,9 +226,9 @@
         ]
       },
       {
-        "chat": "9",
+        "keyword": "9",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "give",
             "interval_seconds": 0.01,
@@ -241,9 +241,9 @@
         ]
       },
       {
-        "chat": "0",
+        "keyword": "0",
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "give",
             "interval_seconds": 0.01,
@@ -259,7 +259,7 @@
     "follow": [
       {
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "once",
             "interval_seconds": 0.01,
@@ -307,7 +307,7 @@
     "share": [
       {
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "once",
             "interval_seconds": 0.01,
@@ -355,7 +355,7 @@
     "member": [
       {
         "rate": 1,
-        "commands": [
+        "actions": [
           {
             "type": "once",
             "interval_seconds": 0.01,

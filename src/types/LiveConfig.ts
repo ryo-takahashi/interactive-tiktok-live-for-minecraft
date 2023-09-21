@@ -8,10 +8,10 @@ export const liveConfigSchema = z.object({
     like: z.array(
       z.object({
         rate: z.number(),
-        commands: z.array(
+        actions: z.array(
           z.object({
             type: z.string(),
-            interval_seconds: z.number().optional(),
+            interval_seconds: z.number(),
             commands: z.array(z.string()),
           })
         ),
@@ -19,9 +19,9 @@ export const liveConfigSchema = z.object({
     ),
     chat: z.array(
       z.object({
-        chat: z.string(),
+        keyword: z.string(),
         rate: z.number(),
-        commands: z.array(
+        actions: z.array(
           z.object({
             type: z.string(),
             interval_seconds: z.number(),
@@ -33,7 +33,7 @@ export const liveConfigSchema = z.object({
     follow: z.array(
       z.object({
         rate: z.number(),
-        commands: z.array(
+        actions: z.array(
           z.object({
             type: z.string(),
             interval_seconds: z.number(),
@@ -45,7 +45,7 @@ export const liveConfigSchema = z.object({
     share: z.array(
       z.object({
         rate: z.number(),
-        commands: z.array(
+        actions: z.array(
           z.object({
             type: z.string(),
             interval_seconds: z.number(),
@@ -57,7 +57,7 @@ export const liveConfigSchema = z.object({
     member: z.array(
       z.object({
         rate: z.number(),
-        commands: z.array(
+        actions: z.array(
           z.object({
             type: z.string(),
             interval_seconds: z.number(),

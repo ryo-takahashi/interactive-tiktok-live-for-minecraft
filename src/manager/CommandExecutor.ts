@@ -1,12 +1,6 @@
-import { Mob } from "../types/Mob";
 import { WebSocket } from "ws";
 import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
-import {
-  buildMobSpawnCommandAtPlayer,
-  buildMobSpawnWithEventCommandAtPlayer,
-} from "../helpers/buildMobSpawnCommandAtPlayer";
 import { Subject, throttle, interval } from "rxjs";
-import { MCSpawnEvent } from "../types/MCSpawnEvent";
 
 export class CommandExecutor {
   private static _instance: CommandExecutor;
@@ -35,5 +29,13 @@ export class CommandExecutor {
 
   public setCurrentWebSocket(ws: WebSocket) {
     this.currentWebSocket = ws;
+  }
+
+  public execute(command: string) {
+    if (!this.currentWebSocket) {
+      console.error("websocket is undefined");
+      return;
+    }
+    executeMinecraftCommand(this.currentWebSocket, command);
   }
 }

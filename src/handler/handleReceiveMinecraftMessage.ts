@@ -1,10 +1,6 @@
-import { WebSocket } from "ws";
 import { handleReceivePlayerDied } from "./handleReceivePlayerDied";
 
-export const handleReceiveMinecraftMessage = async (
-  ws: WebSocket | undefined,
-  rawData: any
-) => {
+export const handleReceiveMinecraftMessage = async (rawData: any) => {
   try {
     const data = JSON.parse(rawData);
     const hasError = data?.body?.statusCode === -2147483648;
@@ -13,14 +9,10 @@ export const handleReceiveMinecraftMessage = async (
       return;
     }
 
-    if (!ws) {
-      console.error("No WebSocket connection");
-      return;
-    }
     const eventName = data?.header?.eventName;
     switch (eventName) {
       case "PlayerDied":
-        handleReceivePlayerDied(ws);
+        handleReceivePlayerDied();
         break;
       default:
         break;

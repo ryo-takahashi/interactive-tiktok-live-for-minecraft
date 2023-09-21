@@ -1,42 +1,31 @@
-import { executeMinecraftCommand } from "../helpers/postMinecraftCommand";
 import { replaceCommand } from "../helpers/replaceCommand";
+import { CommandExecutor } from "../manager/CommandExecutor";
 import { LiveConfig } from "../types/LiveConfig";
-import { WebSocket } from "ws";
 
-export const handleReceiveChat = async (
-  ws: WebSocket | undefined,
-  data: any,
-  config: LiveConfig
-) => {
+export const handleReceiveChat = async (data: any, config: LiveConfig) => {
   const { comment, nickname, uniqueId } = data;
-  if (!ws) {
-    return;
-  }
-  const triggerTexts = config.trigger.chat.map((chat) => chat.chat);
+  const triggerTexts = config.trigger.chat.map((chat) => chat.keyword);
   for await (const triggerText of triggerTexts) {
-    // chatTextからtriggerTextが一致した回数を取得
     const matchCount = comment.split(triggerText).length - 1;
     if (matchCount === 0) {
       continue;
     }
-    // 一致した回数分コマンドを実行
     config.trigger.chat
-      .filter((chat) => chat.chat === triggerText)
+      .filter((chat) => chat.keyword === triggerText)
       .forEach((chat) => {
         if (Math.random() >= chat.rate) {
           return;
         }
-        chat.commands.forEach(async (command) => {
-          switch (command.type) {
+        chat.actions.forEach(async (action) => {
+          switch (action.type) {
             case "give":
             case "once":
               {
-                for await (const e of command.commands) {
+                for await (const e of action.commands) {
                   await new Promise((resolve) => {
-                    setTimeout(resolve, command.interval_seconds * 1000);
+                    setTimeout(resolve, action.interval_seconds * 1000);
                   });
-                  executeMinecraftCommand(
-                    ws,
+                  CommandExecutor.instance.execute(
                     replaceCommand(e, { nickname, count: matchCount })
                   );
                 }
@@ -44,12 +33,11 @@ export const handleReceiveChat = async (
               break;
             case "effect":
               {
-                for await (const e of command.commands) {
+                for await (const e of action.commands) {
                   await new Promise((resolve) => {
-                    setTimeout(resolve, command.interval_seconds * 1000);
+                    setTimeout(resolve, action.interval_seconds * 1000);
                   });
-                  executeMinecraftCommand(
-                    ws,
+                  CommandExecutor.instance.execute(
                     replaceCommand(e, { nickname, count: matchCount * 10 })
                   );
                 }
@@ -58,12 +46,11 @@ export const handleReceiveChat = async (
             case "summon":
               {
                 for await (const _ of Array.from({ length: matchCount })) {
-                  for await (const e of command.commands) {
+                  for await (const e of action.commands) {
                     await new Promise((resolve) => {
-                      setTimeout(resolve, command.interval_seconds * 1000);
+                      setTimeout(resolve, action.interval_seconds * 1000);
                     });
-                    executeMinecraftCommand(
-                      ws,
+                    CommandExecutor.instance.execute(
                       replaceCommand(e, { nickname, count: matchCount })
                     );
                   }
