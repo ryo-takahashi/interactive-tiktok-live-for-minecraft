@@ -1,7 +1,7 @@
 # Interactive-TikTok-Live-For-Minecraft
 
 - TikTok のライブ配信内のイベントを元に Minecraft へコマンドを送信するツール
-- PC(Windows) にてツールを起動し、Minecraft 側からツールに接続するようなイメージです。
+- PC(Windows) にてツールを起動し、Minecraft 側からツールに接続します。
 
 # Requirements
 
@@ -38,14 +38,15 @@ npm run start
 # ライブ配信が始まっていない場合はエラーが出ます
 /connect {PCのIPアドレス}:8080/{TikTokのライブ配信のID}
 
-# 例1 (Windows版Minecraftの場合): /connect localhost:8080/taberukun
-# 例2 (Switch版Minecraftの場合で、PCのIPアドレスが192.168.11.6の場合): /connect 192.168.11.6:8080/taberukun
+# 例1 Windows版Minecraftの場合
+/connect localhost:8080/taberukun
+# 例2 Switch版Minecraftの場合で、PCのIPアドレスが192.168.11.6の場合
+/connect 192.168.11.6:8080/taberukun
 ```
 
 # Customize
 
-- プログラムを変更することでカスタマイズできます。
-  - ※設定ファイルからカスタマイズできる機能を提供予定です。
+- `liveconfig.json` ファイルを編集することでカスタマイズできます
 - 現在の設定
   - ライブに参加
     - 100% 村人のスポーン
