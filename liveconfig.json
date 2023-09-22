@@ -411,10 +411,7 @@
           {
             "type": "once",
             "interval_seconds": 0.01,
-            "commands": [
-              "say §e$nickname joined the game",
-              "summon villager \"$nickname\" ~ ~3 ~"
-            ]
+            "commands": ["summon villager \"$nickname\" ~ ~3 ~"]
           }
         ]
       }
@@ -429,13 +426,13 @@
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
-              "summon zombie \"$nickname\" ~ ~3 ~"
+              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\""
             ]
           },
           {
             "type": "repeat_end",
             "interval_seconds": 0.01,
-            "commands": ["say §d$nickname がRoseを$count個プレゼントした!"]
+            "commands": ["say §d$nickname が帯電クリーパーを$count体召喚した"]
           }
         ]
       },
@@ -448,18 +445,18 @@
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
-              "summon zombie \"$nickname\" ~ ~3 ~"
+              "summon iron_golem \"$nickname\" ~ ~3 ~"
             ]
           },
           {
             "type": "repeat_end",
             "interval_seconds": 0.01,
-            "commands": ["say §d$nickname がGGを$count個プレゼントした!"]
+            "commands": ["say §d$nickname がゴーレムを$count体召喚した"]
           }
         ]
       },
       {
-        "gift_id": 5269,
+        "gift_id": 5487,
         "rate": 1,
         "actions": [
           {
@@ -467,13 +464,165 @@
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
-              "summon zombie \"$nickname\" ~ ~3 ~"
+              "give @a enchanted_golden_apple 1"
             ]
           },
           {
             "type": "repeat_end",
             "interval_seconds": 0.01,
-            "commands": ["say §d$nickname がTikTokを$count個プレゼントした!"]
+            "commands": [
+              "say §d$nickname からエンチャントした金のりんごを$count個受け取った"
+            ]
+          }
+        ]
+      },
+      {
+        "gift_id": 6052,
+        "rate": 1,
+        "actions": [
+          {
+            "type": "repeat",
+            "interval_seconds": 0.01,
+            "commands": ["playsound random.orb @a", "summon lightning_bolt"]
+          },
+          {
+            "type": "repeat_end",
+            "interval_seconds": 0.01,
+            "commands": ["say §d$nickname が落雷を$count回落とした"]
+          }
+        ]
+      },
+      {
+        "gift_id": 5658,
+        "rate": 1,
+        "actions": [
+          {
+            "type": "repeat",
+            "interval_seconds": 0.01,
+            "commands": [
+              "playsound random.orb @a",
+              "summon wither_skeleton \"$nickname\" ~ ~3 ~"
+            ]
+          },
+          {
+            "type": "repeat_end",
+            "interval_seconds": 0.01,
+            "commands": [
+              "say §d$nickname がウィザースケルトンを$count体召喚した"
+            ]
+          }
+        ]
+      },
+      {
+        "gift_id": 5879,
+        "rate": 1,
+        "actions": [
+          {
+            "type": "repeat",
+            "interval_seconds": 0.01,
+            "commands": [
+              "playsound random.orb @a",
+              "give @a totem_of_undying 1"
+            ]
+          },
+          {
+            "type": "repeat_end",
+            "interval_seconds": 0.01,
+            "commands": [
+              "say §d$nickname から不死のトーテムを$count個受け取った"
+            ]
+          }
+        ]
+      },
+      {
+        "gift_id": 6267,
+        "rate": 1,
+        "actions": [
+          {
+            "type": "repeat",
+            "interval_seconds": 0.01,
+            "commands": ["playsound random.levelup @a", "clear"]
+          },
+          {
+            "type": "repeat_end",
+            "interval_seconds": 0.01,
+            "commands": [
+              "say §d$nickname がインベントリリセットを発動",
+              "titleraw @a title {\"rawtext\":[{\"text\":\"§d§lインベントリ リセット\"}]}",
+              "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
+            ]
+          }
+        ]
+      },
+      {
+        "gift_id": 7168,
+        "rate": 1,
+        "actions": [
+          {
+            "type": "repeat",
+            "interval_seconds": 0.01,
+            "commands": [
+              "playsound random.orb @a",
+              "summon warden \"$nickname\" ~ ~3 ~"
+            ]
+          },
+          {
+            "type": "repeat_end",
+            "interval_seconds": 0.01,
+            "commands": [
+              "say §d$nickname がウォーデンを$count体召喚",
+              "playsound random.levelup @a",
+              "titleraw @a title {\"rawtext\":[{\"text\":\"§d§lSummon Warden\"}]}",
+              "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
+            ]
+          }
+        ]
+      },
+      {
+        "gift_id": 5739,
+        "rate": 1,
+        "actions": [
+          {
+            "type": "repeat",
+            "interval_seconds": 0.01,
+            "commands": [
+              "playsound random.orb @a",
+              "summon warden \"$nickname\" ~ ~3 ~"
+            ]
+          },
+          {
+            "type": "repeat_end",
+            "interval_seconds": 0.01,
+            "commands": [
+              "say §d$nickname がウォーデンを$count体召喚",
+              "playsound random.levelup @a",
+              "titleraw @a title {\"rawtext\":[{\"text\":\"§d§lSummon Warden\"}]}",
+              "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
+            ]
+          }
+        ]
+      },
+      {
+        "gift_id": 5587,
+        "rate": 1,
+        "actions": [
+          {
+            "type": "repeat",
+            "interval_seconds": 0.01,
+            "commands": [
+              "playsound random.orb @a",
+              "summon wither \"$nickname\" ~ ~3 ~"
+            ]
+          },
+          {
+            "type": "repeat_end",
+            "interval_seconds": 0.01,
+            "commands": [
+              "say §d$nickname がウィザーを$count体召喚",
+              "playsound random.levelup @a",
+              "titleraw @a title {\"rawtext\":[{\"text\":\"§d§lSummon Wither\"}]}",
+              "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
+            ]
           }
         ]
       }
