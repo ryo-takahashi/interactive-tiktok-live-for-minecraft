@@ -9,7 +9,7 @@
             "type": "once",
             "interval_seconds": 0.01,
             "commands": [
-              "summon creeper ~ ~3 ~ minecraft:start_exploding_forced \"$nickname\""
+              "summon creeper ~ ~ ~ minecraft:start_exploding_forced \"$nickname\""
             ]
           }
         ]
@@ -104,16 +104,16 @@
             "type": "once",
             "interval_seconds": 0.1,
             "commands": [
-              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
-              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
-              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
-              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
-              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
-              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
-              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
-              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
-              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\"",
-              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\""
+              "summon creeper ~ ~ ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~ ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~ ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~ ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~ ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~ ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~ ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~ ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~ ~ minecraft:become_charged \"$nickname\"",
+              "summon creeper ~ ~ ~ minecraft:become_charged \"$nickname\""
             ]
           },
 
@@ -425,14 +425,32 @@
             "type": "repeat",
             "interval_seconds": 0.01,
             "commands": [
-              "playsound random.orb @a",
-              "summon creeper ~ ~3 ~ minecraft:become_charged \"$nickname\""
+              "playsound random.click @a",
+              "summon creeper ~ ~ ~ minecraft:start_exploding_forced \"$nickname\"",
+              "playsound random.click @a",
+              "summon creeper ~ ~ ~ minecraft:start_exploding_forced \"$nickname\"",
+              "playsound random.click @a",
+              "summon creeper ~ ~ ~ minecraft:start_exploding_forced \"$nickname\"",
+              "playsound random.click @a",
+              "summon creeper ~ ~ ~ minecraft:start_exploding_forced \"$nickname\"",
+              "playsound random.click @a",
+              "summon creeper ~ ~ ~ minecraft:start_exploding_forced \"$nickname\"",
+              "playsound random.click @a",
+              "summon creeper ~ ~ ~ minecraft:start_exploding_forced \"$nickname\"",
+              "playsound random.click @a",
+              "summon creeper ~ ~ ~ minecraft:start_exploding_forced \"$nickname\"",
+              "playsound random.click @a",
+              "summon creeper ~ ~ ~ minecraft:start_exploding_forced \"$nickname\"",
+              "playsound random.click @a",
+              "summon creeper ~ ~ ~ minecraft:start_exploding_forced \"$nickname\"",
+              "playsound random.click @a",
+              "summon creeper ~ ~ ~ minecraft:start_exploding_forced \"$nickname\""
             ]
           },
           {
             "type": "repeat_end",
             "interval_seconds": 0.01,
-            "commands": ["say §d$nickname が帯電クリーパーを$count体召喚した"]
+            "commands": ["say §d$nickname がクリーパーを$count0体召喚した"]
           }
         ]
       },
@@ -444,14 +462,42 @@
             "type": "repeat",
             "interval_seconds": 0.01,
             "commands": [
-              "playsound random.orb @a",
-              "summon iron_golem \"$nickname\" ~ ~3 ~"
+              "summon tnt ~-2 ~3 ~-2",
+              "summon tnt ~-1 ~3 ~-2",
+              "summon tnt ~ ~3 ~-2",
+              "summon tnt ~1 ~3 ~-2",
+              "summon tnt ~2 ~3 ~-2",
+              "summon tnt ~-2 ~3 ~-1",
+              "summon tnt ~-1 ~3 ~-1",
+              "summon tnt ~ ~3 ~-1",
+              "summon tnt ~1 ~3 ~-1",
+              "summon tnt ~2 ~3 ~-1",
+              "summon tnt ~-2 ~3 ~",
+              "summon tnt ~-1 ~3 ~",
+              "summon tnt ~ ~3 ~",
+              "summon tnt ~1 ~3 ~",
+              "summon tnt ~2 ~3 ~",
+              "summon tnt ~-2 ~3 ~1",
+              "summon tnt ~-1 ~3 ~1",
+              "summon tnt ~ ~3 ~1",
+              "summon tnt ~1 ~3 ~1",
+              "summon tnt ~2 ~3 ~1",
+              "summon tnt ~-2 ~3 ~2",
+              "summon tnt ~-1 ~3 ~2",
+              "summon tnt ~ ~3 ~2",
+              "summon tnt ~1 ~3 ~2",
+              "summon tnt ~2 ~3 ~2"
             ]
           },
           {
             "type": "repeat_end",
             "interval_seconds": 0.01,
-            "commands": ["say §d$nickname がゴーレムを$count体召喚した"]
+            "commands": [
+              "say §c$nicknameがTNT FEVERを発動",
+              "playsound random.levelup @a",
+              "titleraw @a title {\"rawtext\":[{\"text\":\"§c§lTNT FEVER\"}]}",
+              "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
+            ]
           }
         ]
       },
@@ -482,13 +528,34 @@
         "actions": [
           {
             "type": "repeat",
-            "interval_seconds": 0.01,
-            "commands": ["playsound random.orb @a", "summon lightning_bolt"]
+            "interval_seconds": 0.1,
+            "commands": [
+              "playsound random.click @a",
+              "summon lightning_bolt",
+              "playsound random.click @a",
+              "summon lightning_bolt",
+              "playsound random.click @a",
+              "summon lightning_bolt",
+              "playsound random.click @a",
+              "summon lightning_bolt",
+              "playsound random.click @a",
+              "summon lightning_bolt",
+              "playsound random.click @a",
+              "summon lightning_bolt",
+              "playsound random.click @a",
+              "summon lightning_bolt",
+              "playsound random.click @a",
+              "summon lightning_bolt",
+              "playsound random.click @a",
+              "summon lightning_bolt",
+              "playsound random.click @a",
+              "summon lightning_bolt"
+            ]
           },
           {
             "type": "repeat_end",
             "interval_seconds": 0.01,
-            "commands": ["say §d$nickname が落雷を$count回落とした"]
+            "commands": ["say §d$nickname が落雷を$count0回落とした"]
           }
         ]
       },
@@ -499,16 +566,16 @@
           {
             "type": "repeat",
             "interval_seconds": 0.01,
-            "commands": [
-              "playsound random.orb @a",
-              "summon wither_skeleton \"$nickname\" ~ ~3 ~"
-            ]
+            "commands": ["give @a elytra 1"]
           },
           {
             "type": "repeat_end",
             "interval_seconds": 0.01,
             "commands": [
-              "say §d$nickname がウィザースケルトンを$count体召喚した"
+              "say §a$nicknameがハイパーエリトラタイムを発動",
+              "playsound raid.horn @a",
+              "titleraw @a title {\"rawtext\":[{\"text\":\"§a§o§lハイパーエリトラタイム\"}]}",
+              "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
             ]
           }
         ]
@@ -563,16 +630,16 @@
             "interval_seconds": 0.01,
             "commands": [
               "playsound random.orb @a",
-              "summon warden \"$nickname\" ~ ~3 ~"
+              "summon wither \"$nickname\" ~ ~3 ~"
             ]
           },
           {
             "type": "repeat_end",
             "interval_seconds": 0.01,
             "commands": [
-              "say §d$nickname がウォーデンを$count体召喚",
+              "say §d$nickname がウィザーを$count体召喚",
               "playsound random.levelup @a",
-              "titleraw @a title {\"rawtext\":[{\"text\":\"§d§lSummon Warden\"}]}",
+              "titleraw @a title {\"rawtext\":[{\"text\":\"§d§lSummon Wither\"}]}",
               "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
             ]
           }
@@ -580,30 +647,6 @@
       },
       {
         "gift_id": 5739,
-        "rate": 1,
-        "actions": [
-          {
-            "type": "repeat",
-            "interval_seconds": 0.01,
-            "commands": [
-              "playsound random.orb @a",
-              "summon warden \"$nickname\" ~ ~3 ~"
-            ]
-          },
-          {
-            "type": "repeat_end",
-            "interval_seconds": 0.01,
-            "commands": [
-              "say §d$nickname がウォーデンを$count体召喚",
-              "playsound random.levelup @a",
-              "titleraw @a title {\"rawtext\":[{\"text\":\"§d§lSummon Warden\"}]}",
-              "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
-            ]
-          }
-        ]
-      },
-      {
-        "gift_id": 5587,
         "rate": 1,
         "actions": [
           {
@@ -621,6 +664,38 @@
               "say §d$nickname がウィザーを$count体召喚",
               "playsound random.levelup @a",
               "titleraw @a title {\"rawtext\":[{\"text\":\"§d§lSummon Wither\"}]}",
+              "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
+            ]
+          }
+        ]
+      },
+      {
+        "gift_id": 5587,
+        "rate": 1,
+        "actions": [
+          {
+            "type": "repeat",
+            "interval_seconds": 0.01,
+            "commands": [
+              "playsound random.orb @a",
+              "summon wither \"$nickname\" ~ ~3 ~",
+              "playsound random.orb @a",
+              "summon wither \"$nickname\" ~ ~3 ~",
+              "playsound random.orb @a",
+              "summon wither \"$nickname\" ~ ~3 ~",
+              "playsound random.orb @a",
+              "summon wither \"$nickname\" ~ ~3 ~",
+              "playsound random.orb @a",
+              "summon wither \"$nickname\" ~ ~3 ~"
+            ]
+          },
+          {
+            "type": "repeat_end",
+            "interval_seconds": 0.01,
+            "commands": [
+              "say §d$nickname がウィザー軍団を召喚",
+              "playsound random.levelup @a",
+              "titleraw @a title {\"rawtext\":[{\"text\":\"§d§lSummon Withers\"}]}",
               "titleraw @a subtitle {\"rawtext\":[{\"text\":\"by $nickname\"}]}"
             ]
           }

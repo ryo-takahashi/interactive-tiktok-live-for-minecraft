@@ -10,7 +10,7 @@ export class CommandExecutor {
 
   private constructor() {
     this.throttleSubject
-      .pipe(throttle(() => interval(50)))
+      .pipe(throttle(() => interval(100)))
       .subscribe((command) => {
         if (this.currentWebSocket === undefined) {
           return;
